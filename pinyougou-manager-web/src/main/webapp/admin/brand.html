@@ -31,7 +31,7 @@
             //重新加载列表 数据
             $scope.reloadList = function () {
                 //切换页码
-                $scope.findByPage($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
+                $scope.findByCondition($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
             }
             //分页控件配置
             $scope.paginationConf = {
@@ -55,9 +55,16 @@
 
             //保存品牌
             $scope.addBrand = function () {
-                $http.post("../brand/add.do",$scope.entity).success(function (response) {
-                    if (response.success){
+                //修改品牌信息，也就是修改，修改的话是有id而增加没有，所以可以做一个判断
+                var metnodName='add';//默认是没有id的情况
+                if($scope.entity.id!=null){
+                    //这种情况就是修改，因为存在这id
+                    metnodName = 'update';//将值进行修改
+                }
+                $http.post("../brand/"+metnodName+".do",$scope.entity).success(function (response) {
+                    if (response.status==0){
                         //重新加载，因为添加成功了
+
                         $scope.reloadList();
                     }else{
                         alert(response.message)
@@ -71,6 +78,49 @@
                     $scope.entity = respronse;
                 })
             };
+
+            //获取到复选框的内容，得到id并进行传递  也就是check内容
+            //选中的id集合
+            $scope.selectedIds=[];
+            //更新复选
+            $scope.updateSelection=function ($event,id) {
+                //若是被选中，则添加到数组中去
+                if($event.target.checked){
+                    $scope.selectedIds.push(id);
+                }else{
+                    var idx = $scope.selectedIds.indexOf(id);
+                    //进行删除的操作
+                    $scope.selectedIds.splice(idx,1);
+                }
+            };
+
+            //进行批量删除
+            $scope.dele = function () {
+                alert($scope.selectedIds);
+                //获取到复选框的值，并进行传递
+                $http.get("../brand/delete.do?ids="+$scope.selectedIds).success(function (response) {
+                    if (response.status==0){
+                        //刷新列表
+                        $scope.reloadList();
+                    }
+                })
+            };
+
+            //定义搜索对象
+            $scope.searchEntity={};
+            //进行条件查询
+            $scope.findByCondition=function (page,rows) {
+                $http.post("../brand/findByCondition.do?page="+page+"&rows="+rows,$scope.searchEntity).success(function (response) {
+                    //更新数据列表
+                    $scope.paginationConf.totalItems=response.total;//总记录数
+                    $scope.list=response.rows;//给列表变量赋值
+
+                })
+            };
+
+
+
+
         });
     </script>
 
@@ -94,7 +144,7 @@
                     <button type="button" class="btn btn-default" title="新建" data-toggle="modal"
                             data-target="#editModal" ng-click="entity={}" ><i class="fa fa-file-o"></i> 新建
                     </button>
-                    <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
+                    <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i class="fa fa-trash-o"></i> 删除</button>
                     <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
                             class="fa fa-refresh"></i> 刷新
                     </button>
@@ -103,7 +153,9 @@
         </div>
         <div class="box-tools pull-right">
             <div class="has-feedback">
-
+                品牌名称：<input ng-model="searchEntity.name">
+                品牌首字母：<input ng-model="searchEntity.firstChar">
+                <button class="btn btn-default" ng-click="reloadList()">查询</button>
             </div>
         </div>
         <!--工具栏/-->
@@ -123,7 +175,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="entity in list">
-                <td><input type="checkbox"></td>
+                <td><input type="checkbox"  ng-click="updateSelection($event,entity.id)"></td>
                 <td>{{entity.id}}</td>
                 <td>{{entity.name}}</td>
                 <td>{{entity.firstChar}}</td>

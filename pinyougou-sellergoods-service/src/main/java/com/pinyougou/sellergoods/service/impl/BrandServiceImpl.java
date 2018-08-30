@@ -70,8 +70,34 @@ public class BrandServiceImpl implements BrandService {
         brandMapper.updateBrand(brand);
     }
 
+    //根据id查找到品牌信息
     @Override
     public TbBrand findById(Integer id) {
         return brandMapper.findById(id);
+    }
+
+    //批量删除品牌的信息
+    @Override
+    public void deleteBrand(String id) {
+        //应该是以，进行切割，然后转为integer类型的id去进行删除
+        String[] ids= id.split(",");
+        //方法1:就是将整个数组传过去
+        brandMapper.deleteBrands(ids);
+    }
+
+    //条件查询
+    @Override
+    public Map<String, Object> findByCondiction(TbBrand brand, Integer page, Integer rows) {
+        PageHelper.startPage(page,rows);
+        //查询出来的信息
+        List<TbBrand> list = brandMapper.findByCondition(brand);
+        //将数据存储进去
+        PageInfo<TbBrand> info = new PageInfo<>(list);
+        List<TbBrand> brandList = info.getList();
+        long total = info.getTotal();
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("total",total);
+        map.put("rows",brandList);
+        return map;
     }
 }

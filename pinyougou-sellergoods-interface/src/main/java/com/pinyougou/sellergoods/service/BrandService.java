@@ -3,6 +3,7 @@ package com.pinyougou.sellergoods.service;
 import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbBrand;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,4 +52,22 @@ public interface BrandService {
     * @Date: 2018/8/29 
     */ 
     TbBrand findById(Integer id);
+
+    /** 
+    * @Description: 批量删除品牌信息
+    * @Param: [ids] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/8/30 
+    */ 
+    void deleteBrand(String ids);
+
+    /** 
+    * @Description: 条件查询品牌的信息 
+    * @Param: [brand, page, rows] 
+    * @return: java.util.List<com.pinyougou.pojo.TbBrand> 
+    * @Author: Yin 
+    * @Date: 2018/8/30 
+    */ 
+    Map<String, Object> findByCondiction(TbBrand brand, Integer page, Integer rows);
 }

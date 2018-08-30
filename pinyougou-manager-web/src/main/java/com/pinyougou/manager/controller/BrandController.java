@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.sellergoods.service.BrandService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -88,6 +89,37 @@ public class BrandController {
     @RequestMapping("/findOne")
     public TbBrand findById(Integer id){
         return brandService.findById(id);
+    }
+
+    /** 
+    * @Description: 批量进行删除
+    * @Param: [ids] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbBrand> 
+    * @Author: Yin 
+    * @Date: 2018/8/30 
+    */ 
+    @RequestMapping("/delete")
+    public ResponseResult<TbBrand> deleteBrand(String ids){
+        try {
+            brandService.deleteBrand(ids);
+            return ResponseResult.success("删除成功！！");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("删除失败！！");
+        }
+    }
+
+    /** 
+    * @Description: 条件查询 
+    * @Param: [brand, page, rows] 
+    * @return: java.util.List<com.pinyougou.pojo.TbBrand> 
+    * @Author: Yin 
+    * @Date: 2018/8/30 
+    */ 
+    @RequestMapping("/findByCondition")
+    public Map<String, Object> findByCondition(@RequestBody TbBrand brand,@RequestParam(required = false,defaultValue = "1") Integer page,
+                                         @RequestParam(required = false,defaultValue = "10") Integer rows){
+        return brandService.findByCondiction(brand,page,rows);
     }
 }
 
