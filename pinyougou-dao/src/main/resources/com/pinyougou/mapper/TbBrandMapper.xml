@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pinyougou.mapper.TbBrandMapper">
+  <resultMap id="BaseResultMap" type="com.pinyougou.pojo.TbBrand">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="first_char" jdbcType="VARCHAR" property="firstChar" />
+  </resultMap>
+
+  <!--查找到所有的品牌管理的信息-->
+  <select id="findAll" resultMap="BaseResultMap">
+    select * FROM  tb_brand
+  </select>
+
+  <!--添加品牌的信息-->
+  <insert id="addBrand" useGeneratedKeys="true" keyProperty="id" >
+    INSERT into tb_brand(name,first_char) VALUES (#{name},#{firstChar})
+  </insert>
+
+  <!--修改品牌信息-->
+  <update id="updateBrand">
+    UPDATE tb_brand SET name=#{name},first_char=#{firstChar} where id=#{id}
+  </update>
+
+  <!--根据id查找到品牌信息-->
+  <select id="findById" parameterType="Integer" resultMap="BaseResultMap">
+    SELECT * from tb_brand where id=#{id}
+  </select>
+
+</mapper>
