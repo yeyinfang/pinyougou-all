@@ -18,112 +18,15 @@
     <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
     <!-- 分页组件结束 -->
 
-    <script type="text/javascript">
-        var app = angular.module('pyg', ['pagination']);//定义模块
-        app.controller('brandController', function ($scope, $http) {
-            //读取列表数据绑定到表单中
-            $scope.findAll = function () {
-                $http.get("../brand/findAll.do").success(function (response) {
-                    $scope.list = response;
-                })
-            };
-
-            //重新加载列表 数据
-            $scope.reloadList = function () {
-                //切换页码
-                $scope.findByCondition($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
-            }
-            //分页控件配置
-            $scope.paginationConf = {
-                currentPage: 1,
-                totalItems: 10,
-                itemsPerPage: 10,
-                perPageOptions: [10, 20, 30, 40, 50],
-                onChange: function () {
-                    $scope.reloadList();//重新加载
-                }
-            };
-
-            //分页读取
-            $scope.findByPage = function (page,rows) {
-                $http.get('../brand/findByPage.do?page='+page+'&rowss'+rows).success(function (response) {
-                    $scope.list = response.rows;
-                    //更新总记录数
-                    $scope.paginationConf.totalItems = response.total;
-                })
-            };
-
-            //保存品牌
-            $scope.addBrand = function () {
-                //修改品牌信息，也就是修改，修改的话是有id而增加没有，所以可以做一个判断
-                var metnodName='add';//默认是没有id的情况
-                if($scope.entity.id!=null){
-                    //这种情况就是修改，因为存在这id
-                    metnodName = 'update';//将值进行修改
-                }
-                $http.post("../brand/"+metnodName+".do",$scope.entity).success(function (response) {
-                    if (response.status==0){
-                        //重新加载，因为添加成功了
-
-                        $scope.reloadList();
-                    }else{
-                        alert(response.message)
-                    }
-                })
-            };
-
-            //查找到品牌信息
-            $scope.findById = function (id) {
-                $http.get("../brand/findOne.do?id="+id).success(function (respronse) {
-                    $scope.entity = respronse;
-                })
-            };
-
-            //获取到复选框的内容，得到id并进行传递  也就是check内容
-            //选中的id集合
-            $scope.selectedIds=[];
-            //更新复选
-            $scope.updateSelection=function ($event,id) {
-                //若是被选中，则添加到数组中去
-                if($event.target.checked){
-                    $scope.selectedIds.push(id);
-                }else{
-                    var idx = $scope.selectedIds.indexOf(id);
-                    //进行删除的操作
-                    $scope.selectedIds.splice(idx,1);
-                }
-            };
-
-            //进行批量删除
-            $scope.dele = function () {
-                alert($scope.selectedIds);
-                //获取到复选框的值，并进行传递
-                $http.get("../brand/delete.do?ids="+$scope.selectedIds).success(function (response) {
-                    if (response.status==0){
-                        //刷新列表
-                        $scope.reloadList();
-                    }
-                })
-            };
-
-            //定义搜索对象
-            $scope.searchEntity={};
-            //进行条件查询
-            $scope.findByCondition=function (page,rows) {
-                $http.post("../brand/findByCondition.do?page="+page+"&rows="+rows,$scope.searchEntity).success(function (response) {
-                    //更新数据列表
-                    $scope.paginationConf.totalItems=response.total;//总记录数
-                    $scope.list=response.rows;//给列表变量赋值
-
-                })
-            };
-
-
-
-
-        });
-    </script>
-
+    <!--将所需要的给引入进来-->
+    <!--引入所有的（分页）-->
+    <script type="text/javascript" src="../js/base_pagination.js"></script>
+    <!--引入父控制层-->
+    <script type="text/javascript" src="../js/controller/baseController.js"></script>
+    <!--引入控制层-->
+    <script type="text/javascript" src="../js/controller/brandController.js"></script>
+    <!--引入服务层-->
+    <script type="text/javascript" src="../js/service/brandService.js"></script>
 
 </head>
 <body class="hold-transition skin-red sidebar-mini" ng-app="pyg" ng-controller="brandController">
