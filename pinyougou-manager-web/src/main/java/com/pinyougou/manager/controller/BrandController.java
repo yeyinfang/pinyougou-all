@@ -4,8 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.sellergoods.service.BrandService;
-import com.sun.org.apache.regexp.internal.RE;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

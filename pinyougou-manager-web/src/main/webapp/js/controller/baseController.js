@@ -1,4 +1,9 @@
 app.controller('baseController',function ($scope) {
+    //重新加载列表 数据
+    $scope.reloadList=function(){
+        //切换页码
+        $scope.findByCondition( $scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
+    };
 
     //分页控件的配置
     $scope.paginationConf = {
@@ -9,12 +14,6 @@ app.controller('baseController',function ($scope) {
         onChange: function(){
             $scope.reloadList();//重新加载
         }
-    };
-
-    //重新加载列表 数据
-    $scope.reloadList=function(){
-        //切换页码
-        $scope.findByCondition( $scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
     };
 
     //复选的操作
