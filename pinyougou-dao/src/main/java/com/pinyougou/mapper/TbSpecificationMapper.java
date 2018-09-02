@@ -24,4 +24,13 @@ public interface TbSpecificationMapper /*extends Mapper<TbSpecification>*/ {
     * @Date: 2018/9/1 
     */ 
    List<TbSpecification> findByCondition(TbSpecification specification);
+
+   /** 
+   * @Description: 添加规格的管理
+   * @Param: [specification] 
+   * @return: void 
+   * @Author: Yin 
+   * @Date: 2018/9/2 
+   */ 
+    void addSpecification(TbSpecification specification);
 }

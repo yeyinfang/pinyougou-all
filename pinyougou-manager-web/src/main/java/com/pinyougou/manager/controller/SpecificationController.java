@@ -2,6 +2,8 @@ package com.pinyougou.manager.controller;
 
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.pinyougou.entity.ResponseResult;
+import com.pinyougou.entity.Specification;
 import com.pinyougou.pojo.TbSpecification;
 import com.pinyougou.sellergoods.service.SpecificationService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,14 +26,46 @@ public class SpecificationController {
     @Reference
     private SpecificationService specificationService;
 
+    /** 
+    * @Description: 查找所有的 
+    * @Param: [] 
+    * @return: java.util.List<com.pinyougou.pojo.TbSpecification> 
+    * @Author: Yin 
+    * @Date: 2018/9/2 
+    */ 
     @RequestMapping("/findAll")
     public List<TbSpecification> findAll(){
         return specificationService.findAll();
     }
 
+    /** 
+    * @Description: 分页查找
+    * @Param: [page, rows, specification] 
+    * @return: java.util.Map<java.lang.String,java.lang.Object> 
+    * @Author: Yin 
+    * @Date: 2018/9/2 
+    */ 
     @RequestMapping("/findByCondition")
     public Map<String,Object> findByCondition(int page,int rows,@RequestBody TbSpecification specification){
         return specificationService.findByCondition(page,rows,specification);
+    }
+
+    /** 
+    * @Description: 添加规格的管理
+    * @Param: [specification] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbSpecification> 
+    * @Author: Yin 
+    * @Date: 2018/9/2 
+    */ 
+    @RequestMapping("/add")
+    public ResponseResult<TbSpecification> addSpecification(@RequestBody Specification specification){
+        try {
+            specificationService.addSpecification(specification);
+            return ResponseResult.success("添加成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("添加失败");
+        }
     }
 
 }

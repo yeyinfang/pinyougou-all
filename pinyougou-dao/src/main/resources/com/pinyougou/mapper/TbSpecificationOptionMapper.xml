@@ -10,4 +10,9 @@
     <result column="spec_id" jdbcType="BIGINT" property="specId" />
     <result column="orders" jdbcType="INTEGER" property="orders" />
   </resultMap>
+
+  <!--增加选项-->
+  <insert id="addOption" useGeneratedKeys="true" keyProperty="id">
+    INSERT  INTO tb_specification_option(option_name,spec_id,orders) VALUES (#{optionName},#{specId},#{orders})
+  </insert>
 </mapper>
