@@ -11,6 +11,9 @@ app.service('specificationService',function ($http) {
     /*增加规格*/
     this.addSpecification=function (entity) {
         return $http.post("../specification/add.do",entity);
-        
+    }
+    /*查询*/
+    this.findOne=function (id) {
+        return $http.get("../specification/findOne.do?id="+id);
     }
 })

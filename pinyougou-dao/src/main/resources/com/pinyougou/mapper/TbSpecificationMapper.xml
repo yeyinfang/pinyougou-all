@@ -29,4 +29,9 @@
     INSERT into tb_specification(spec_name) VALUES (#{specName})
   </insert>
 
+  <!--根据id去进行查询-->
+  <select id="findByOne"  parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT  * FROM tb_specification WHERE  id=#{id}
+  </select>
+
 </mapper>

@@ -40,6 +40,16 @@ app.controller('specificationController',function ($scope,$controller,specificat
                 alert(response.message)
             }
         })
+    };
+
+    //根据id去进行到获取的值
+    $scope.findOne=function (id) {
+        specificationService.findOne(id).success(function (response) {
+            //alert(id);
+            $scope.entity = response;
+            
+        })
+        
     }
 
 })

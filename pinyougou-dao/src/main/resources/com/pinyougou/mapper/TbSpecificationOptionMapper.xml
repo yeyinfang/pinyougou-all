@@ -15,4 +15,9 @@
   <insert id="addOption" useGeneratedKeys="true" keyProperty="id">
     INSERT  INTO tb_specification_option(option_name,spec_id,orders) VALUES (#{optionName},#{specId},#{orders})
   </insert>
+
+  <!--根据规格的名字去进行查找的-->
+  <select id="findBySpecId" resultMap="BaseResultMap">
+    SELECT * FROM tb_specification_option where spec_id=#{specId}
+  </select>
 </mapper>

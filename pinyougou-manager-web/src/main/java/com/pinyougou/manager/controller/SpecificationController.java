@@ -68,4 +68,27 @@ public class SpecificationController {
         }
     }
 
+    @RequestMapping("/findOne")
+    public Specification findById(Long id){
+        return specificationService.findByOne(id);
+    }
+
+    /** 
+    * @Description: 对于规格的修改的时候，要同时可以对规格选项进行修改
+    * @Param: [specification] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbSpecification> 
+    * @Author: Yin 
+    * @Date: 2018/9/2 
+    */ 
+    @RequestMapping("/update")
+    public ResponseResult<Specification> updateSpecification(@RequestBody Specification specification){
+        try {
+            specificationService.updateSpecification(specification);
+            return ResponseResult.success("修改成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("修改失败");
+        }
+    }
+
 }

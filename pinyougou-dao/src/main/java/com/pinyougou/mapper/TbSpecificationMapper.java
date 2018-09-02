@@ -33,4 +33,22 @@ public interface TbSpecificationMapper /*extends Mapper<TbSpecification>*/ {
    * @Date: 2018/9/2 
    */ 
     void addSpecification(TbSpecification specification);
+
+    /** 
+    * @Description: 修改规格的管理
+    * @Param: [specification] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/2 
+    */ 
+    void updateSpecification(TbSpecification specification);
+
+    /** 
+    * @Description: 根据id获取到规格的这一条记录 
+    * @Param: [id] 
+    * @return: com.pinyougou.pojo.TbSpecification 
+    * @Author: Yin 
+    * @Date: 2018/9/2 
+    */ 
+    TbSpecification findByOne(Long id);
 }

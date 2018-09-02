@@ -34,4 +34,22 @@ public interface SpecificationService {
      * @param specification
     */ 
     void addSpecification(Specification specification);
+
+    /** 
+    * @Description: 修改实体的信息
+    * @Param: [specification] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/2 
+    */ 
+    void updateSpecification(Specification specification);
+
+    /** 
+    * @Description: 根据id去寻找规格的信息 
+    * @Param: [id] 
+    * @return: com.pinyougou.entity.Specification 
+    * @Author: Yin 
+    * @Date: 2018/9/2 
+    */ 
+    Specification findByOne(Long id);
 }
