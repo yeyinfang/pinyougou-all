@@ -16,4 +16,19 @@
   <select id="findAll" resultMap="BaseResultMap">
     select * from tb_type_template
   </select>
+
+  <!--根据条件进行查询-->
+  <select id="findByCondition" resultMap="BaseResultMap">
+    select * from tb_type_template
+    <where>
+      <if test="name!=null and name!=''">
+        name LIKE  '%${name}%'
+      </if>
+    </where>
+  </select>
+
+  <!--增加的操作-->
+  <insert id="addTypeTemplate">
+    insert into tb_type_template(name,spec_ids,brand_ids,custom_attribute_items) values (#{name},#{specIds}，#{brandIds}，#{customAttributeItems});
+  </insert>
 </mapper>

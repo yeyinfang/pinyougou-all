@@ -14,4 +14,22 @@ public interface TbTypeTemplateMapper extends Mapper<TbTypeTemplate> {
     * @Date: 2018/9/3 
     */ 
     List<TbTypeTemplate> findAll();
+
+    /** 
+    * @Description: 根据条件去进行查询
+    * @Param: [typeTemplate] 
+    * @return: java.util.List<com.pinyougou.pojo.TbTypeTemplate> 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    List<TbTypeTemplate> findByCondition(TbTypeTemplate typeTemplate);
+
+    /** 
+    * @Description: 增加模板的操作
+    * @Param: [typeTemplate] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    void addTypeTemplate(TbTypeTemplate typeTemplate);
 }
