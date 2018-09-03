@@ -11,4 +11,9 @@
     <result column="brand_ids" jdbcType="VARCHAR" property="brandIds" />
     <result column="custom_attribute_items" jdbcType="VARCHAR" property="customAttributeItems" />
   </resultMap>
+
+  <!--查询所有的-->
+  <select id="findAll" resultMap="BaseResultMap">
+    select * from tb_type_template
+  </select>
 </mapper>
