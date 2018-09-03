@@ -20,4 +20,9 @@
   <select id="findBySpecId" resultMap="BaseResultMap">
     SELECT * FROM tb_specification_option where spec_id=#{specId}
   </select>
+
+  <!--删除-->
+  <delete id="deleteOption" parameterType="java.lang.Long">
+    DELETE FROM tb_specification_option where spec_id=#{specId}
+  </delete>
 </mapper>

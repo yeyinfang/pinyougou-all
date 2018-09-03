@@ -23,4 +23,13 @@ public interface TbSpecificationOptionMapper extends Mapper<TbSpecificationOptio
     * @Date: 2018/9/2 
     */ 
     List<TbSpecificationOption> findBySpecId(Long specId);
+
+    /** 
+    * @Description: 删除选中规格的id，将是这个类的都进行删除，在进行添加
+    * @Param: [specId] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/2 
+    */ 
+    void deleteOption(Long specId);
 }

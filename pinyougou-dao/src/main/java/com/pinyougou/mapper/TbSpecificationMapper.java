@@ -51,4 +51,13 @@ public interface TbSpecificationMapper /*extends Mapper<TbSpecification>*/ {
     * @Date: 2018/9/2 
     */ 
     TbSpecification findByOne(Long id);
+
+    /** 
+    * @Description: 根据id去进行删除
+    * @Param: [l] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    void deleteSpecification(long id);
 }

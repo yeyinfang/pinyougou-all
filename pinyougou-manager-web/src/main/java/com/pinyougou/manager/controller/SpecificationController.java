@@ -6,6 +6,7 @@ import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.entity.Specification;
 import com.pinyougou.pojo.TbSpecification;
 import com.pinyougou.sellergoods.service.SpecificationService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -89,6 +90,18 @@ public class SpecificationController {
             e.printStackTrace();
             return ResponseResult.error("修改失败");
         }
+    }
+
+    @RequestMapping("/delete")
+    public ResponseResult<Specification> deleteSpecification(Long[] ids){
+        try {
+            specificationService.deleteSpecification(ids);
+            return ResponseResult.success("删除成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("删除失败");
+        }
+
     }
 
 }

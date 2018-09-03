@@ -34,4 +34,14 @@
     SELECT  * FROM tb_specification WHERE  id=#{id}
   </select>
 
+  <!--修改规格信息-->
+  <update id="updateSpecification">
+    UPDATE tb_specification SET spec_name = #{specName} where id=#{id}
+  </update>
+
+  <!--根据id删除规格信息-->
+  <delete id="deleteSpecification" parameterType="java.lang.Long">
+    DELETE FROM tb_specification WHERE id=#{id}
+  </delete>
+
 </mapper>

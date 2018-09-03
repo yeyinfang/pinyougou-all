@@ -52,4 +52,14 @@ public interface SpecificationService {
     * @Date: 2018/9/2 
     */ 
     Specification findByOne(Long id);
+
+    /** 
+    * @Description: 批量删除 
+    * @Param: [ids] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/2
+     * @param ids
+    */ 
+    void deleteSpecification(Long[] ids);
 }

@@ -49,7 +49,18 @@ app.controller('specificationController',function ($scope,$controller,specificat
             $scope.entity = response;
             
         })
-        
+    };
+
+    //根据id去进行删除
+    $scope.dele=function () {
+        specificationService.dele($scope.selectedIds).success(function (response) {
+            if(response.status==0){
+                //删除成功
+                $scope.reloadList();
+            }else{
+                alert(response.message);
+            }
+        })
     }
 
 })
