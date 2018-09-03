@@ -32,4 +32,31 @@ public interface TypeTemplateService {
     * @Date: 2018/9/3 
     */ 
     void addTypeTemplate(TbTypeTemplate typeTemplate);
+
+    /** 
+    * @Description: 修改模板的操作
+    * @Param: [typeTemplate] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    void updateTypeTemplate(TbTypeTemplate typeTemplate);
+
+    /** 
+    * @Description: 根据id查找到模板的操作
+    * @Param: [id] 
+    * @return: com.pinyougou.pojo.TbTypeTemplate 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    TbTypeTemplate findById(Long id);
+
+    /** 
+    * @Description: 批量删除模板 
+    * @Param: [ids] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    void deleteTypeTemplate(Long[] ids);
 }

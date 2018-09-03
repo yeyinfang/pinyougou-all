@@ -32,4 +32,31 @@ public interface TbTypeTemplateMapper extends Mapper<TbTypeTemplate> {
     * @Date: 2018/9/3 
     */ 
     void addTypeTemplate(TbTypeTemplate typeTemplate);
+
+    /** 
+    * @Description: 修改模板的操作
+    * @Param: [typeTemplate] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    void updateTypeTemplate(TbTypeTemplate typeTemplate);
+
+    /** 
+    * @Description: 根据id查找到模板的信息
+    * @Param: [id] 
+    * @return: com.pinyougou.pojo.TbTypeTemplate 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    TbTypeTemplate findById(Long id);
+
+    /** 
+    * @Description: 根据id删除模板
+    * @Param: [id] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    void deleteTypeTemplate(Long id);
 }

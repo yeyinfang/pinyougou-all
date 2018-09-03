@@ -44,4 +44,8 @@
     DELETE FROM tb_specification WHERE id=#{id}
   </delete>
 
+  <!--模板所使用的-->
+  <select id="selectOptionSpec" resultType="java.util.Map">
+    SELECT id,spec_name as text from tb_specification
+  </select>
 </mapper>

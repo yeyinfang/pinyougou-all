@@ -7,6 +7,7 @@ import com.pinyougou.sellergoods.service.TypeTemplateService;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class TypeTemplateController {
     * @Date: 2018/9/3 
     */ 
     @RequestMapping("/add")
-    public ResponseResult<TbTypeTemplate> addTypeTemplate(TbTypeTemplate typeTemplate){
+    public ResponseResult<TbTypeTemplate> addTypeTemplate(@RequestBody TbTypeTemplate typeTemplate){
         try {
             typeTemplateService.addTypeTemplate(typeTemplate);
             return ResponseResult.success("增加成功");
@@ -67,4 +68,53 @@ public class TypeTemplateController {
         }
     }
 
+    /** 
+    * @Description: 修改模板
+    * @Param: [typeTemplate] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbTypeTemplate> 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    @RequestMapping("/update")
+    public ResponseResult<TbTypeTemplate> updateTypeTemplate(@RequestBody TbTypeTemplate typeTemplate){
+        try {
+            typeTemplateService.updateTypeTemplate(typeTemplate);
+            return ResponseResult.success("修改成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("修改失败");
+        }
+    }
+
+    /** 
+    * @Description:  根据id找到对应的模板信息
+    * @Param: [id] 
+    * @return: com.pinyougou.pojo.TbTypeTemplate 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    @RequestMapping("/findByOne")
+    @ResponseBody
+    public TbTypeTemplate findById(Long id){
+        return typeTemplateService.findById(id);
+    }
+
+    
+    /** 
+    * @Description: 批量去删除这个模板的信息
+    * @Param: [ids] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbTypeTemplate> 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    @RequestMapping("/delete")
+    public ResponseResult<TbTypeTemplate> deleteTypeTemplate(Long[] ids){
+        try {
+            typeTemplateService.deleteTypeTemplate(ids);
+            return ResponseResult.success("删除成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("删除失败");
+        }
+    }
 }

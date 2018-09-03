@@ -27,4 +27,14 @@ app.service('specificationService',function ($http) {
         return $http.get("../specification/delete.do?ids="+ids);
     }
 
+    /*供应给模板的下拉列表的操作*/
+    this.selectOptionSpec=function () {
+        return $http.get("../specification/selectOptionSpec.do");
+    }
+
+    /*增加的操作*/
+    this.add=function (entity) {
+        return $http.post("../specification/add.do",entity);
+    }
+
 })

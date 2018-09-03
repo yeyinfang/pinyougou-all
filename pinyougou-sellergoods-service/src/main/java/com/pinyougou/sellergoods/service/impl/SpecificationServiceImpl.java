@@ -99,4 +99,9 @@ public class SpecificationServiceImpl implements SpecificationService {
             specificationOptionMapper.deleteOption(id);
         }
     }
+
+    @Override
+    public List<Map> selectOptionSpec() {
+        return specificationMapper.selectOptionSpec();
+    }
 }

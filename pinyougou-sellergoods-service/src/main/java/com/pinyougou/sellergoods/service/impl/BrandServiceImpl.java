@@ -100,4 +100,9 @@ public class BrandServiceImpl implements BrandService {
         map.put("rows",brandList);
         return map;
     }
+
+    @Override
+    public List<Map> selectOptionList() {
+        return brandMapper.selectOptionList();
+    }
 }

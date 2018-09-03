@@ -44,8 +44,28 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
         return map;
     }
 
+    //增加模板
     @Override
     public void addTypeTemplate(TbTypeTemplate typeTemplate) {
         typeTemplateMapper.addTypeTemplate(typeTemplate);
+    }
+
+    //修改模板
+    @Override
+    public void updateTypeTemplate(TbTypeTemplate typeTemplate) {
+        typeTemplateMapper.updateTypeTemplate(typeTemplate);
+    }
+
+    //根据id去找到对应的模板
+    @Override
+    public TbTypeTemplate findById(Long id) {
+        return typeTemplateMapper.findById(id);
+    }
+
+    @Override
+    public void deleteTypeTemplate(Long[] ids) {
+        for (Long id : ids) {
+            typeTemplateMapper.deleteTypeTemplate(id);
+        }   
     }
 }

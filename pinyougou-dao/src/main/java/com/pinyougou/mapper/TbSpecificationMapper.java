@@ -4,6 +4,7 @@ import com.github.abel533.mapper.Mapper;
 import com.pinyougou.pojo.TbSpecification;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TbSpecificationMapper /*extends Mapper<TbSpecification>*/ {
     /**
@@ -60,4 +61,13 @@ public interface TbSpecificationMapper /*extends Mapper<TbSpecification>*/ {
     * @Date: 2018/9/3 
     */ 
     void deleteSpecification(long id);
+
+    /** 
+    * @Description: 为了给模板的下拉列表进行显示的
+    * @Param: [] 
+    * @return: java.util.List<java.util.Map> 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    List<Map> selectOptionSpec();
 }

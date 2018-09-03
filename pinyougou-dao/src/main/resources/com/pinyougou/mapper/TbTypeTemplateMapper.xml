@@ -29,6 +29,21 @@
 
   <!--增加的操作-->
   <insert id="addTypeTemplate">
-    insert into tb_type_template(name,spec_ids,brand_ids,custom_attribute_items) values (#{name},#{specIds}，#{brandIds}，#{customAttributeItems});
+    insert into tb_type_template(name,spec_ids,brand_ids,custom_attribute_items) values (#{name},#{specIds},#{brandIds},#{customAttributeItems});
   </insert>
+
+  <!--修改模板的操作-->
+  <update id="updateTypeTemplate">
+    update tb_type_template set name=#{name},spec_ids=#{specIds},brand_ids=#{brandIds},custom_attribute_items=#{customAttributeItems} WHERE id=#{id}
+  </update>
+
+  <!--根据id查找到模板-->
+  <select id="findById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    SELECT * from tb_type_template where id=#{id}
+  </select>
+
+  <!--根据id删除模板信息-->
+  <delete id="deleteTypeTemplate" parameterType="java.lang.Long">
+    DELETE FROM tb_type_template WHERE id=#{id}
+  </delete>
 </mapper>

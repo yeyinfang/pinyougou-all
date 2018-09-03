@@ -62,4 +62,14 @@ public interface SpecificationService {
      * @param ids
     */ 
     void deleteSpecification(Long[] ids);
+
+    
+    /** 
+    * @Description: 为了给品牌管理进行使用的
+    * @Param: [] 
+    * @return: java.util.List<java.util.Map> 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    List<Map> selectOptionSpec();
 }

@@ -3,7 +3,6 @@ package com.pinyougou.sellergoods.service;
 import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbBrand;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,4 +69,13 @@ public interface BrandService {
     * @Date: 2018/8/30 
     */ 
     Map<String, Object> findByCondiction(TbBrand brand, Integer page, Integer rows);
+
+    /** 
+    * @Description: 将名字，id给传出来
+    * @Param: [] 
+    * @return: java.util.List<com.pinyougou.pojo.TbTypeTemplate> 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    List<Map> selectOptionList();
 }

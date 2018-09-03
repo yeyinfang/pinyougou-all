@@ -2,9 +2,11 @@ package com.pinyougou.mapper;
 
 import com.github.abel533.mapper.Mapper;
 import com.pinyougou.pojo.TbBrand;
+import com.pinyougou.pojo.TbTypeTemplate;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TbBrandMapper extends Mapper<TbBrand> {
 
@@ -61,4 +63,14 @@ public interface TbBrandMapper extends Mapper<TbBrand> {
     * @Date: 2018/8/30 
     */ 
     List<TbBrand> findByCondition(TbBrand brand);
+
+    
+    /** 
+    * @Description: 查找到品牌，只是为了用于模板上的使用
+    * @Param: [] 
+    * @return: java.util.List<com.pinyougou.pojo.TbTypeTemplate> 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    List<Map> selectOptionList();
 }

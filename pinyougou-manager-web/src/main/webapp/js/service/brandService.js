@@ -35,4 +35,13 @@ app.service('brandService',function ($http) {
     this.dele=function (ids) {
         return $http.get("../brand/delete.do?ids="+ids);
     }
+
+    /*
+    * 模板上所需要的查询
+    * */
+    this.selectOptionList=function () {
+        return $http.get("../brand/selectOptionList.do");
+    }
+
+
 })

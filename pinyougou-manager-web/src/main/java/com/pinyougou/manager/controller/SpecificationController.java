@@ -92,6 +92,13 @@ public class SpecificationController {
         }
     }
 
+    /** 
+    * @Description: 删除规格的操作
+    * @Param: [ids] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.entity.Specification> 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
     @RequestMapping("/delete")
     public ResponseResult<Specification> deleteSpecification(Long[] ids){
         try {
@@ -101,7 +108,18 @@ public class SpecificationController {
             e.printStackTrace();
             return ResponseResult.error("删除失败");
         }
+    }
 
+    /** 
+    * @Description: 供应给模板的下拉列表去进行使用 
+    * @Param: [] 
+    * @return: java.util.List<java.util.Map> 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    @RequestMapping("selectOptionSpec")
+    public List<Map> selectOptionSpec(){
+        return specificationService.selectOptionSpec();
     }
 
 }

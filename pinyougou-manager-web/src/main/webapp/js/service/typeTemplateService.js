@@ -12,7 +12,20 @@ app.service('typeTemplateService',function ($http) {
 
     //增加的操作
     this.add=function (entity) {
-        return $http.post("../typeTemplate/add.do",entity);
+        var methodName="add";
+        if(entity.id!=null){
+            methodName="update";
+        }
+        return $http.post("../typeTemplate/"+methodName+".do",entity);
     }
 
+    //根据id去找到模板的操作
+    this.findOne=function (id) {
+        return $http.get("../typeTemplate/findByOne.do?id="+id);
+    }
+
+    //删除模板的操作
+    this.dele=function (ids) {
+        return $http.get("../typeTemplate/delete.do?ids="+ids);
+    }
 })

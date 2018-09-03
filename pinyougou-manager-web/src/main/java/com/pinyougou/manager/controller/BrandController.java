@@ -3,6 +3,7 @@ package com.pinyougou.manager.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbBrand;
+import com.pinyougou.pojo.TbTypeTemplate;
 import com.pinyougou.sellergoods.service.BrandService;
 
 import org.springframework.web.bind.annotation.*;
@@ -119,6 +120,19 @@ public class BrandController {
     public Map<String, Object> findByCondition(@RequestBody TbBrand brand,@RequestParam(required = false,defaultValue = "1") Integer page,
                                          @RequestParam(required = false,defaultValue = "10") Integer rows){
         return brandService.findByCondiction(brand,page,rows);
+    }
+
+    
+    /** 
+    * @Description: 模板上要使用的查询
+    * @Param: [] 
+    * @return: java.util.List<com.pinyougou.pojo.TbTypeTemplate> 
+    * @Author: Yin 
+    * @Date: 2018/9/3 
+    */ 
+    @RequestMapping("/selectOptionList")
+    public List<Map> selectOptionList(){
+        return brandService.selectOptionList();
     }
 }
 
