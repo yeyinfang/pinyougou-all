@@ -14,4 +14,15 @@ public interface TbItemCatMapper extends Mapper<TbItemCat> {
     * @Date: 2018/7/13 
     */ 
     List<TbItemCat> findByParentId(Long parentId);
+
+    /** 
+    * @Description: 查询到所有的分类
+    * @Param: [] 
+    * @return: java.util.List<com.pinyougou.pojo.TbItemCat> 
+    * @Author: Yin 
+    * @Date: 2018/9/4 
+    */
+    List<TbItemCat> findAll();
+
+
 }

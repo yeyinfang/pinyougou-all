@@ -10,4 +10,11 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type_id" jdbcType="BIGINT" property="typeId" />
   </resultMap>
+
+  <!--查找到所有的分类的值-->
+  <select id="findAll" resultMap="BaseResultMap">
+    SELECT * FROM tb_item_cat where parent_id=0
+  </select>
+
+
 </mapper>
