@@ -40,4 +40,9 @@ public class ItemCatServiceImpl implements ItemCatService {
         map.put("rows",info.getList());
         return map;
     }
+
+    @Override
+    public List<TbItemCat> findByParentId(Long parentId) {
+        return itemCatMapper.findByParentId(parentId);
+    }
 }

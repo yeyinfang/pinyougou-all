@@ -34,9 +34,28 @@ public class ItemCatController {
         return itemCatService.findAll();
     }
 
+    /** 
+    * @Description: 分页的操作，找到所有的父类的   就parent_id为0
+    * @Param: [page, rows] 
+    * @return: java.util.Map<java.lang.String,java.lang.Object> 
+    * @Author: Yin 
+    * @Date: 2018/9/4 
+    */ 
     @RequestMapping("findByCondition")
     public Map<String,Object> findByCondition(int page, int rows){
         return itemCatService.findByCondition(page,rows);
+    }
+
+    /** 
+    * @Description: 根据父类的id去进行查找
+    * @Param: [parentId] 
+    * @return: java.util.List<com.pinyougou.pojo.TbItemCat> 
+    * @Author: Yin 
+    * @Date: 2018/9/4 
+    */ 
+    @RequestMapping("findByParentId")
+    public List<TbItemCat> findByParentId(Long parentId){
+        return itemCatService.findByParentId(parentId);
     }
 
 }

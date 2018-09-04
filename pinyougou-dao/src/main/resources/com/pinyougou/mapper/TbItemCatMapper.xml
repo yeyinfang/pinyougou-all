@@ -16,5 +16,10 @@
     SELECT * FROM tb_item_cat where parent_id=0
   </select>
 
+  <!--查找到父类的id-->
+  <select id="findByParentId" resultMap="BaseResultMap">
+    SELECT * FROM tb_item_cat where parent_id=#{parentId}
+  </select>
+
 
 </mapper>

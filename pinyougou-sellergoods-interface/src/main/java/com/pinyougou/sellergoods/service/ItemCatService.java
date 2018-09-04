@@ -23,4 +23,13 @@ public interface ItemCatService {
     * @Date: 2018/9/4 
     */ 
     Map<String,Object> findByCondition(int page, int rows);
+
+    /** 
+    * @Description: 根据父类的id查到所属的分类
+    * @Param: [parentId] 
+    * @return: java.util.List<com.pinyougou.pojo.TbItemCat> 
+    * @Author: Yin 
+    * @Date: 2018/9/4 
+    */ 
+    List<TbItemCat> findByParentId(Long parentId);
 }

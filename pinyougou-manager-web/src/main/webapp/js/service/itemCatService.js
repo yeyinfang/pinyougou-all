@@ -4,4 +4,9 @@ app.service('itemCatService',function ($http) {
     this.findByCondition=function (page,rows) {
         return $http.get("../itemCat/findByCondition.do?page="+page+"&rows="+rows);
     }
+
+    //查找到所有的父类的id
+    this.findByParentId=function (parentId) {
+        return $http.get("../itemCat/findByParentId.do?parentId="+parentId);
+    }
 })
