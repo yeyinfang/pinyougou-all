@@ -69,4 +69,13 @@ public interface TypeTemplateService {
     * @Date: 2018/9/7 
     */
     List<Map> findTypeList();
+
+    /** 
+    * @Description: 查找到名字 
+    * @Param: [id] 
+    * @return: com.pinyougou.pojo.TbTypeTemplate 
+    * @Author: Yin 
+    * @Date: 2018/9/8 
+    */ 
+    TbTypeTemplate findTypeTemplate(Long id);
 }

@@ -75,4 +75,18 @@ app.controller('itemCatController',function ($scope,$controller,itemCatService,t
     };
 
 
+    //根据id去进行查找
+    $scope.findById=function (id) {
+
+        itemCatService.findById(id).success(function (response) {
+            $scope.entity=response;
+
+            for ( var i = 0; i <$scope.typeList.data.length; i++){
+                if( $scope.typeList.data[i].id == $scope.entity.typeId){
+                    $scope.entity.typeId  = $scope.typeList.data[i];
+                }
+            }
+        });
+    }
+
 })

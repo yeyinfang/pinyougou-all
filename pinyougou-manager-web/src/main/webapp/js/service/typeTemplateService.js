@@ -33,4 +33,10 @@ app.service('typeTemplateService',function ($http) {
     this.findTypeList=function () {
         return $http.get("../typeTemplate/findTypeList.do");
     }
+
+    //查找到对象
+    this.findTypeTemplate=function (id) {
+        return $http.get("../typeTemplate/findTypeTemplate.do?id="+id);
+        
+    }
 })

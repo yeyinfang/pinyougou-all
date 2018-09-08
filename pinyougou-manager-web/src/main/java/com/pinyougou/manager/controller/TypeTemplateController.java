@@ -126,8 +126,21 @@ public class TypeTemplateController {
     * @Author: Yin 
     * @Date: 2018/9/7 
     */ 
-    @RequestMapping("findTypeList")
+    @RequestMapping("/findTypeList")
     public List<Map> findTypeList(){
         return typeTemplateService.findTypeList();
+    }
+
+    
+    /**
+    * @Description:根据id查找到id和名字
+    * @Param:  
+    * @return:  
+    * @Author: Yin 
+    * @Date: 2018/9/8 
+    */ 
+    @RequestMapping("/findTypeTemplate")
+    public TbTypeTemplate findTypeTemplate(Long id){
+        return typeTemplateService.findTypeTemplate(id);
     }
 }

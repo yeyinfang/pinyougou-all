@@ -13,6 +13,15 @@ app.service('itemCatService',function ($http) {
     //增加分类的操作
     this.add=function (entity) {
         entity.typeId = entity.typeId.id;
-        return $http.post("../itemCat/add.do",entity);
+        var methodName="add";
+        if(entity.id!=null){//修改
+            methodName="update";
+        }
+        return $http.post("../itemCat/"+methodName+".do",entity);
+    }
+
+    //根据id去进行查询
+    this.findById=function (id) {
+        return $http.get("../itemCat/findById.do?id="+id);
     }
 })

@@ -74,4 +74,9 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
     public List<Map> findTypeList() {
         return typeTemplateMapper.findTypeList();
     }
+
+    @Override
+    public TbTypeTemplate findTypeTemplate(Long id) {
+        return typeTemplateMapper.findTypeTemplate(id);
+    }
 }

@@ -50,4 +50,14 @@ public class ItemCatServiceImpl implements ItemCatService {
     public void addItemCat(TbItemCat itemCat) {
         itemCatMapper.addItemCat(itemCat);
     }
+
+    @Override
+    public void updateItemCat(TbItemCat itemCat) {
+        itemCatMapper.updateItemCat(itemCat);
+    }
+
+    @Override
+    public TbItemCat findById(Long id) {
+        return itemCatMapper.findById(id);
+    }
 }

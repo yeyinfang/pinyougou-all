@@ -41,4 +41,22 @@ public interface ItemCatService {
     * @Date: 2018/9/7 
     */ 
     void addItemCat(TbItemCat itemCat);
+
+    /** 
+    * @Description: 修改的操作 
+    * @Param: [itemCat] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/8 
+    */ 
+    void updateItemCat(TbItemCat itemCat);
+
+    /** 
+    * @Description: 根据id去查找到分类的
+    * @Param: [id] 
+    * @return: com.pinyougou.pojo.TbItemCat 
+    * @Author: Yin 
+    * @Date: 2018/9/8 
+    */ 
+    TbItemCat findById(Long id);
 }

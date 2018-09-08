@@ -26,4 +26,13 @@
     insert into tb_item_cat(parent_id,name,type_id) VALUES (#{parentId},#{name},#{typeId})
   </insert>
 
+  <!--修改的操作-->
+  <update id="updateItemCat">
+    UPDATE tb_item_cat SET name=#{name},type_id=#{typeId} where id=#{id}
+  </update>
+
+  <!--根据id查找-->
+  <select id="findById" resultMap="BaseResultMap">
+    SELECT * FROM tb_item_cat WHERE id=#{id}
+  </select>
 </mapper>

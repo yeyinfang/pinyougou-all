@@ -70,13 +70,43 @@ public class ItemCatController {
     @RequestMapping("/add")
     public ResponseResult<TbItemCat> addItemCat(@RequestBody TbItemCat  itemCat){
         try {
-            System.out.println(itemCat.getTypeId());
             itemCatService.addItemCat(itemCat);
             return ResponseResult.success("添加成功");
         }catch (Exception e){
             e.printStackTrace();
             return ResponseResult.error("添加失败");
         }
+    }
+
+    /** 
+    * @Description: 修改分类的操作
+    * @Param: [itemCat] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbItemCat> 
+    * @Author: Yin 
+    * @Date: 2018/9/8 
+    */ 
+    @RequestMapping("/update")
+    public ResponseResult<TbItemCat> updateItemCat(@RequestBody TbItemCat itemCat){
+        try {
+            itemCatService.updateItemCat(itemCat);
+            return ResponseResult.success("修改成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("修改失败");
+        }
+    }
+
+    
+    /** 
+    * @Description: 跟着分类去进行查找
+    * @Param: [id] 
+    * @return: com.pinyougou.pojo.TbItemCat 
+    * @Author: Yin 
+    * @Date: 2018/9/8 
+    */ 
+    @RequestMapping("/findById")
+    public TbItemCat findById(Long id){
+        return itemCatService.findById(id);
     }
 
 }

@@ -51,4 +51,9 @@
   <select id="findTypeList" resultType="java.util.Map">
     SELECT id,name as text FROM  tb_type_template
   </select>
+
+  <!--查找到名字-->
+  <select id="findTypeTemplate" parameterType="java.lang.Long">
+    SELECT id,name FROM tb_type_template where id=#{id}
+  </select>
 </mapper>
