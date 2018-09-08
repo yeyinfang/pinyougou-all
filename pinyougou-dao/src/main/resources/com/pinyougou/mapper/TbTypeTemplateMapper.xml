@@ -46,4 +46,9 @@
   <delete id="deleteTypeTemplate" parameterType="java.lang.Long">
     DELETE FROM tb_type_template WHERE id=#{id}
   </delete>
+
+  <!--下拉列表的回显操作-->
+  <select id="findTypeList" resultType="java.util.Map">
+    SELECT id,name as text FROM  tb_type_template
+  </select>
 </mapper>

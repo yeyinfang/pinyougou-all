@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pinyougou.mapper.TbTypeTemplateMapper;
+import com.pinyougou.pojo.TbItemCat;
 import com.pinyougou.pojo.TbTypeTemplate;
 import com.pinyougou.sellergoods.service.TypeTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +68,10 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
         for (Long id : ids) {
             typeTemplateMapper.deleteTypeTemplate(id);
         }   
+    }
+
+    @Override
+    public List<Map> findTypeList() {
+        return typeTemplateMapper.findTypeList();
     }
 }

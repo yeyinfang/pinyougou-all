@@ -2,6 +2,7 @@ package com.pinyougou.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.entity.ResponseResult;
+import com.pinyougou.pojo.TbItemCat;
 import com.pinyougou.pojo.TbTypeTemplate;
 import com.pinyougou.sellergoods.service.TypeTemplateService;
 
@@ -116,5 +117,17 @@ public class TypeTemplateController {
             e.printStackTrace();
             return ResponseResult.error("删除失败");
         }
+    }
+
+    /** 
+    * @Description: 为了下拉列表做准备的，也就是进行显示的效果操作
+    * @Param: [] 
+    * @return: java.util.List<com.pinyougou.pojo.TbItemCat> 
+    * @Author: Yin 
+    * @Date: 2018/9/7 
+    */ 
+    @RequestMapping("findTypeList")
+    public List<Map> findTypeList(){
+        return typeTemplateService.findTypeList();
     }
 }

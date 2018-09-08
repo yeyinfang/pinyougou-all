@@ -117,4 +117,8 @@ public class TbItemCat implements Serializable {
         sb.append("]");
         return sb.toString();
     }
+
+    public String getText() {
+        return this.name;
+    }
 }

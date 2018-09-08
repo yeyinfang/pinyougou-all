@@ -1,5 +1,5 @@
 //这是控制层
-app.controller('itemCatController',function ($scope,$controller,itemCatService) {
+app.controller('itemCatController',function ($scope,$controller,itemCatService,typeTemplateService) {
     //继承
     //$controller('baseController',{$scope:$scope});
 
@@ -12,8 +12,12 @@ app.controller('itemCatController',function ($scope,$controller,itemCatService) 
         })
     };*/
 
+    //记录父类的id
+    $scope.parentId=0;//上级ID
     //根据父类id去进行查询
     $scope.findByParentId=function (parentId) {
+        //当我进行对应的操作，父类的id就应该要跟着改变
+        $scope.parentId=parentId;//进行赋值的操作
         itemCatService.findByParentId(parentId).success(function (response) {
             $scope.list=response;
         })
@@ -45,7 +49,30 @@ app.controller('itemCatController',function ($scope,$controller,itemCatService) 
         }
 
         $scope.findByParentId(p_entity.id);
-    }
+    };
+
+    //将类型模板下拉初始化
+    $scope.typeList={data:[]};//最开始的时候是为空的操作的
+    $scope.findTypeList=function () {
+        typeTemplateService.findTypeList().success(function (response) {
+            $scope.typeList={data:response};
+        })
+    };
+
+    //增加的操作
+    $scope.add=function () {
+        //将父类的值进行修改，在进行到增加的操作
+        $scope.entity.parentId=$scope.parentId;
+        itemCatService.add($scope.entity).success(function (response) {
+            if (response.status==0){
+                //增加成功的操作,于是应该重新加载一下这个分类下的东西
+                $scope.findByParentId($scope.parentId);
+            }else{
+                //增加失败
+                alert(response.message);
+            }
+        })
+    };
 
 
 })

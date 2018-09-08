@@ -28,4 +28,9 @@ app.service('typeTemplateService',function ($http) {
     this.dele=function (ids) {
         return $http.get("../typeTemplate/delete.do?ids="+ids);
     }
+
+    //下拉列表框的操作，也就是找到名字和id
+    this.findTypeList=function () {
+        return $http.get("../typeTemplate/findTypeList.do");
+    }
 })

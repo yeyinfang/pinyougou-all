@@ -45,4 +45,9 @@ public class ItemCatServiceImpl implements ItemCatService {
     public List<TbItemCat> findByParentId(Long parentId) {
         return itemCatMapper.findByParentId(parentId);
     }
+
+    @Override
+    public void addItemCat(TbItemCat itemCat) {
+        itemCatMapper.addItemCat(itemCat);
+    }
 }

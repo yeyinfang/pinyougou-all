@@ -9,4 +9,10 @@ app.service('itemCatService',function ($http) {
     this.findByParentId=function (parentId) {
         return $http.get("../itemCat/findByParentId.do?parentId="+parentId);
     }
+
+    //增加分类的操作
+    this.add=function (entity) {
+        entity.typeId = entity.typeId.id;
+        return $http.post("../itemCat/add.do",entity);
+    }
 })

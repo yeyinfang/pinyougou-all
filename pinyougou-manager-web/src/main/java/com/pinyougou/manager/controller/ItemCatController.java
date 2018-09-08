@@ -1,6 +1,7 @@
 package com.pinyougou.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbItemCat;
 import com.pinyougou.sellergoods.service.ItemCatService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,6 +57,26 @@ public class ItemCatController {
     @RequestMapping("findByParentId")
     public List<TbItemCat> findByParentId(Long parentId){
         return itemCatService.findByParentId(parentId);
+    }
+
+    
+    /** 
+    * @Description: 添加分类的操作
+    * @Param: [itemCat] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbItemCat> 
+    * @Author: Yin 
+    * @Date: 2018/9/7 
+    */ 
+    @RequestMapping("/add")
+    public ResponseResult<TbItemCat> addItemCat(@RequestBody TbItemCat  itemCat){
+        try {
+            System.out.println(itemCat.getTypeId());
+            itemCatService.addItemCat(itemCat);
+            return ResponseResult.success("添加成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("添加失败");
+        }
     }
 
 }

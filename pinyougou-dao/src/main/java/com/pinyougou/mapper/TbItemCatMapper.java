@@ -24,5 +24,12 @@ public interface TbItemCatMapper extends Mapper<TbItemCat> {
     */
     List<TbItemCat> findAll();
 
-
+    /** 
+    * @Description: 添加分类的操作
+    * @Param: [itemCat] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/7 
+    */ 
+    void addItemCat(TbItemCat itemCat);
 }

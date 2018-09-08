@@ -21,5 +21,9 @@
     SELECT * FROM tb_item_cat where parent_id=#{parentId}
   </select>
 
+  <!--增加的操作-->
+  <insert id="addItemCat">
+    insert into tb_item_cat(parent_id,name,type_id) VALUES (#{parentId},#{name},#{typeId})
+  </insert>
 
 </mapper>

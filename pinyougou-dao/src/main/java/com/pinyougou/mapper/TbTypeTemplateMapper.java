@@ -1,9 +1,11 @@
 package com.pinyougou.mapper;
 
 import com.github.abel533.mapper.Mapper;
+import com.pinyougou.pojo.TbItemCat;
 import com.pinyougou.pojo.TbTypeTemplate;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TbTypeTemplateMapper extends Mapper<TbTypeTemplate> {
     /** 
@@ -59,4 +61,13 @@ public interface TbTypeTemplateMapper extends Mapper<TbTypeTemplate> {
     * @Date: 2018/9/3 
     */ 
     void deleteTypeTemplate(Long id);
+
+    /** 
+    * @Description: 下拉列表的回显
+    * @Param: [] 
+    * @return: java.util.List<com.pinyougou.pojo.TbItemCat> 
+    * @Author: Yin 
+    * @Date: 2018/9/7 
+    */
+    List<Map> findTypeList();
 }

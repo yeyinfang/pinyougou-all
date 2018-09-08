@@ -1,5 +1,6 @@
 package com.pinyougou.sellergoods.service;
 
+import com.pinyougou.pojo.TbItemCat;
 import com.pinyougou.pojo.TbTypeTemplate;
 
 import java.util.List;
@@ -59,4 +60,13 @@ public interface TypeTemplateService {
     * @Date: 2018/9/3 
     */ 
     void deleteTypeTemplate(Long[] ids);
+
+    /** 
+    * @Description: 为了下拉列表做准备的，也就是进行显示的效果操作
+    * @Param: [] 
+    * @return: java.util.List<com.pinyougou.pojo.TbItemCat> 
+    * @Author: Yin 
+    * @Date: 2018/9/7 
+    */
+    List<Map> findTypeList();
 }
