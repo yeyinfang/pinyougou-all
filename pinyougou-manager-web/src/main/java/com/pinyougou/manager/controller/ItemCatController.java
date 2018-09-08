@@ -109,4 +109,16 @@ public class ItemCatController {
         return itemCatService.findById(id);
     }
 
+
+    @RequestMapping("/delete")
+    public ResponseResult<TbItemCat> deleteItemCat(Long[] ids){
+        List<Integer> list = itemCatService.deleteItemCat(ids);
+        if (list.size()==0){
+            return ResponseResult.success("删除成功");
+        }else{
+            return ResponseResult.error(list+"删除失败,其是有下级分类的，无法直接进行删除！");
+        }
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package com.pinyougou.sellergoods.service;
 
+import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbItemCat;
 
 import java.util.List;
@@ -59,4 +60,13 @@ public interface ItemCatService {
     * @Date: 2018/9/8 
     */ 
     TbItemCat findById(Long id);
+
+    /** 
+    * @Description: 批量删除
+    * @Param: [ids] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/8 
+    */
+    List<Integer>  deleteItemCat(Long[] ids);
 }

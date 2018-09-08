@@ -24,4 +24,9 @@ app.service('itemCatService',function ($http) {
     this.findById=function (id) {
         return $http.get("../itemCat/findById.do?id="+id);
     }
+
+    //根据id进行删除，这是批量删除的操作
+    this.dele=function (ids) {
+        return $http.get("../itemCat/delete.do?ids="+ids);
+    }
 })

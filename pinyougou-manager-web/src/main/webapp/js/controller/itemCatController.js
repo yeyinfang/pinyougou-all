@@ -1,7 +1,7 @@
 //这是控制层
 app.controller('itemCatController',function ($scope,$controller,itemCatService,typeTemplateService) {
     //继承
-    //$controller('baseController',{$scope:$scope});
+    $controller('baseController',{$scope:$scope});
 
     //分页显示
    /* $scope.findByCondition=function (page,rows) {
@@ -77,16 +77,32 @@ app.controller('itemCatController',function ($scope,$controller,itemCatService,t
 
     //根据id去进行查找
     $scope.findById=function (id) {
-
         itemCatService.findById(id).success(function (response) {
             $scope.entity=response;
-
+            //进行下拉列表的回显操作
             for ( var i = 0; i <$scope.typeList.data.length; i++){
                 if( $scope.typeList.data[i].id == $scope.entity.typeId){
                     $scope.entity.typeId  = $scope.typeList.data[i];
                 }
             }
         });
-    }
+    };
+
+    //批量删除
+    $scope.dele=function () {
+        itemCatService.dele($scope.selectedIds).success(function (response) {
+            if (response.status==0){//删除成功
+                $scope.findByParentId($scope.parentId);
+            }else{
+                //删除失败
+                alert(response.message);
+            }
+        })
+    };
+
+    //刷新的操作
+    $scope.reloadList=function () {
+        $scope.findByParentId($scope.parentId);
+    };
 
 })

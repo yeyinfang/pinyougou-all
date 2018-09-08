@@ -50,4 +50,22 @@ public interface TbItemCatMapper extends Mapper<TbItemCat> {
     * @Date: 2018/9/8 
     */ 
     TbItemCat findById(Long id);
+
+    /** 
+    * @Description: 根据id去进行查找，看是否这个id是有下级的
+    * @Param: [id] 
+    * @return: int 
+    * @Author: Yin 
+    * @Date: 2018/9/8 
+    */ 
+    int CountByParentId(Long id);
+
+    /** 
+    * @Description: 根据id进行删除
+    * @Param: [id] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/8 
+    */ 
+    void deleteItemCat(Long id);
 }

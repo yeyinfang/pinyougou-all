@@ -3,11 +3,13 @@ package com.pinyougou.sellergoods.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.mapper.TbItemCatMapper;
 import com.pinyougou.pojo.TbItemCat;
 import com.pinyougou.sellergoods.service.ItemCatService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,5 +61,23 @@ public class ItemCatServiceImpl implements ItemCatService {
     @Override
     public TbItemCat findById(Long id) {
         return itemCatMapper.findById(id);
+    }
+
+    @Override
+    public List<Integer> deleteItemCat(Long[] ids) {
+
+        //这是是来装有id的对象
+        List<Integer> idLong=new ArrayList<>();
+        for (Long id : ids) {
+            //先根据id查看是否有下级，有的话就是不可以进行删除，没有的话就可以进行删除操作
+            int count = itemCatMapper.CountByParentId(id);
+            if (count==0){
+                //证明这个是没有下级的，可以进行删除
+                itemCatMapper.deleteItemCat(id);
+            }else{
+                idLong.add(id.intValue());
+            }
+        }
+        return idLong;
     }
 }
