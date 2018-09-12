@@ -20,6 +20,7 @@ app.controller('itemCatController',function ($scope,$controller,itemCatService,t
         $scope.parentId=parentId;//进行赋值的操作
         itemCatService.findByParentId(parentId).success(function (response) {
             $scope.list=response;
+
         })
     };
 
