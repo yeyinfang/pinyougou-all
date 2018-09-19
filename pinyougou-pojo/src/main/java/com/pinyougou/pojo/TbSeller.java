@@ -143,6 +143,12 @@ public class TbSeller implements Serializable {
     @Column(name = "bank_name")
     private String bankName;
 
+    /**
+     * 开户行
+     */
+    @Column(name = "bank_number")
+    private String bankNumber;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -577,6 +583,24 @@ public class TbSeller implements Serializable {
         this.bankName = bankName;
     }
 
+    /**
+     * 获取开户行
+     *
+     * @return bank_number - 开户行
+     */
+    public String getBankNumber() {
+        return bankNumber;
+    }
+
+    /**
+     * 设置开户行
+     *
+     * @param bankNumber 开户行
+     */
+    public void setBankNumber(String bankNumber) {
+        this.bankNumber = bankNumber;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -607,6 +631,7 @@ public class TbSeller implements Serializable {
         sb.append(", legalPersonCardId=").append(legalPersonCardId);
         sb.append(", bankUser=").append(bankUser);
         sb.append(", bankName=").append(bankName);
+        sb.append(", bankNumber=").append(bankNumber);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

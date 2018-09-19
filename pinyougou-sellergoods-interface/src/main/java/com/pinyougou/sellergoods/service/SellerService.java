@@ -1,11 +1,10 @@
-package com.pinyougou.mapper;
+package com.pinyougou.sellergoods.service;
 
-import com.github.abel533.mapper.Mapper;
 import com.pinyougou.pojo.TbSeller;
 
-public interface TbSellerMapper extends Mapper<TbSeller> {
+public interface SellerService {
     /** 
-    * @Description:
+    * @Description: 增加商家 
     * @Param: [seller] 
     * @return: void 
     * @Author: Yin 

@@ -29,5 +29,16 @@
     <result column="legal_person_card_id" jdbcType="VARCHAR" property="legalPersonCardId" />
     <result column="bank_user" jdbcType="VARCHAR" property="bankUser" />
     <result column="bank_name" jdbcType="VARCHAR" property="bankName" />
+    <result column="bank_number" jdbcType="VARCHAR" property="bankNumber" />
   </resultMap>
+
+  <!--增加商家-->
+  <insert id="addSeller" parameterType="com.pinyougou.pojo.TbSeller">
+    INSERT INTO tb_seller(seller_id,password,name,nick_name,email,telephone,status,address_detail,linkman_name,
+    linkman_qq,linkman_mobile,linkman_email,license_number,tax_number,org_number,create_time,legal_person,legal_person_card_id,
+    bank_user,bank_name,bank_number) VALUES(#{sellerId},#{password},#{name},#{nickName},#{email},#{telephone},#{status},#{addressDetail},
+    #{linkmanName},#{linkmanQq},#{linkmanMobile},#{linkmanEmail},#{licenseNumber},#{taxNumber},#{orgNumber},#{createTime},
+    #{legalPerson},#{legalPersonCardId},#{bankUser},#{bankName},#{bankNumber})
+  </insert>
+
 </mapper>

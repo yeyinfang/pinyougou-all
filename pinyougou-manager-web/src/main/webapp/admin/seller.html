@@ -17,7 +17,7 @@
     
 </head>
 
-<body class="hold-transition skin-red sidebar-mini"  >
+<body class="hold-transition skin-red sidebar-mini"  ng-app="pyg" ng-controller="sellerController">
   <!-- .box-body -->
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -63,13 +63,13 @@
 			                          </tr>
 			                      </thead>
 			                      <tbody>
-			                          <tr>
+			                          <tr ng-repeat="entity in list">
 			                              <td><input  type="checkbox"></td>			                              
-				                          <td>1</td>
-									      <td>梦琪琪商贸有限公司</td>
-									      <td>梦琪琪</td>
+				                          <td>{{entity.sellerId}}</td>
+									      <td>{{entity.name}}</td>
+									      <td>{{entity.nickName}}</td>
 									      <td>李梦琪</td>
-									      <td>13402312232</td>
+									      <td>{{entity.telephone}}</td>
 		                                  <td>
 			                                  <span>未审核</span>	
 										     
