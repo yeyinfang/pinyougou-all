@@ -41,4 +41,20 @@
     #{legalPerson},#{legalPersonCardId},#{bankUser},#{bankName},#{bankNumber})
   </insert>
 
+  <!--查询所有-->
+  <select id="findAll" resultMap="BaseResultMap">
+    SELECT * FROM tb_seller
+  </select>
+
+  <!--条件查询-->
+  <select id="findByCondition" resultMap="BaseResultMap">
+    SELECT * FROM tb_seller where status = #{status}
+    <if test='name !=null and name !="" '>
+      AND name LIKE '%${name}%'
+    </if>
+    <if test='nickName !=null and nickName !="" '>
+      AND nick_name LIKE '%${nickName}%'
+    </if>
+  </select>
+
 </mapper>
