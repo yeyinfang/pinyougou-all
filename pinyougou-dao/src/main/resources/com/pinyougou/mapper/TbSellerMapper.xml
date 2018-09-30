@@ -57,4 +57,19 @@
     </if>
   </select>
 
+  <!--条件查询-->
+  <select id="findOne"  parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * FROM  tb_seller where seller_id=#{sellerId}
+  </select>
+
+  <!--修改的操作-->
+  <update id="update" parameterType="com.pinyougou.pojo.TbSeller">
+    UPDATE tb_seller SET password=#{password},name=#{name},nick_name=#{nickName},email=#{email},telephone=#{telephone},
+    status=#{status},address_detail=#{addressDetail},linkman_name=#{linkmanName},linkman_qq=#{linkmanQq},
+    linkman_mobile=#{linkmanMobile},linkman_email=#{linkmanEmail},license_number=#{licenseNumber},
+    tax_number=#{taxNumber},org_number=#{orgNumber},create_time=#{createTime},legal_person=#{legalPerson},
+    legal_person_card_id=#{legalPersonCardId},bank_user=#{bankUser},bank_name=#{bankName},bank_number=#{bankNumber}
+    where seller_id=#{sellerId}
+  </update>
+
 </mapper>

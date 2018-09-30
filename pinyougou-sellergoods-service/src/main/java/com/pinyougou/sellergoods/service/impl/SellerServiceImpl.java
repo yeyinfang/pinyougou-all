@@ -45,4 +45,19 @@ public class SellerServiceImpl implements SellerService {
         map.put("rows",info.getList());
         return map;
     }
+
+    @Override
+    public TbSeller findOne(String sellerId) {
+        return sellerMapper.findOne(sellerId);
+    }
+
+    @Override
+    public void updateStutas(String sellerId, String status) {
+        //先找到商品，看是否存在
+        TbSeller seller = sellerMapper.findOne(sellerId);
+        //将审核的状态给设置了，然后在进行修改的操作，其实也就是还是对整个对象进行修改的操作
+        seller.setStatus(status);
+        sellerMapper.update(seller);
+
+    }
 }

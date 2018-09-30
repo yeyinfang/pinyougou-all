@@ -17,5 +17,27 @@ app.controller('sellerController',function ($scope,$controller,sellerService) {
             $scope.paginationConf.totalItems=response.total;//总记录数
             $scope.list=response.rows;//给列表变量赋值
         })
-    }
+    };
+
+    //根据id去进行查找
+    $scope.findById=function (sellerId) {
+        sellerService.findById(sellerId).success(function (response) {
+            $scope.entity=response;
+        })
+    };
+
+    //修改状态
+    $scope.updateStatus=function (sellerId,status) {
+        sellerService.updateStatus(sellerId,status).success(function (response) {
+            if (response.status==0){//修改成功
+                //刷新列表
+                $scope.reloadList();
+            }else{
+                //失败那就弹窗说明
+                alert(response.message);
+            }
+        })
+    };
+
+
 })

@@ -32,4 +32,22 @@ public interface TbSellerMapper extends Mapper<TbSeller> {
     * @Date: 2018/9/30 
     */ 
     List<TbSeller> findByCondition(TbSeller seller);
+
+    /** 
+    * @Description: 根据id去进行查找到整个商家的详情，也就是为了进行修改所做的操作
+    * @Param: [sellerId] 
+    * @return: com.pinyougou.pojo.TbSeller 
+    * @Author: Yin 
+    * @Date: 2018/9/30 
+    */ 
+    TbSeller findOne(String sellerId);
+
+    /** 
+    * @Description: 对商家进行修改的操作
+    * @Param: [seller] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/9/30 
+    */ 
+    void update(TbSeller seller);
 }
