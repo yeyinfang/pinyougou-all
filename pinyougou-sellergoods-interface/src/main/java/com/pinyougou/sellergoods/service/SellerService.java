@@ -51,4 +51,13 @@ public interface SellerService {
     * @Date: 2018/9/30 
     */ 
     void updateStutas(String sellerId, String status);
+
+    /** 
+    * @Description: 根据名字去找到用户，看是否存在用户 
+    * @Param: [username] 
+    * @return: com.pinyougou.pojo.TbSeller 
+    * @Author: Yin 
+    * @Date: 2018/10/10 
+    */ 
+    TbSeller findByName(String username);
 }

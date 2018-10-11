@@ -28,6 +28,7 @@
         <!--退出登陆-->
         <logout/>
 
+        <!--防止出现403的问题-->
         <csrf disabled="true"/>
 
         <!--让springSecurity不拦截iframe-->

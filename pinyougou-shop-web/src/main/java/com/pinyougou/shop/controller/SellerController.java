@@ -4,6 +4,9 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbSeller;
 import com.pinyougou.sellergoods.service.SellerService;
+import org.springframework.security.authentication.encoding.BaseDigestPasswordEncoder;
+import org.springframework.security.authentication.encoding.BasePasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +35,12 @@ public class SellerController {
     */ 
     @RequestMapping("/add")
     public ResponseResult<TbSeller> addSeller(@RequestBody TbSeller seller){
+        //密码进行加密的设置  使用的是BCrypt算法
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        //将密码进行加密的操作
+        String password = passwordEncoder.encode(seller.getPassword());
+        //将加密后的密码进行设置，也就是保存到数据库中的是一串我们看不懂的字符
+        seller.setPassword(password);
         try {
             //设置审核的状态  0：未审核   1：已审核   2：审核未通过   3：关闭
             seller.setStatus("0");

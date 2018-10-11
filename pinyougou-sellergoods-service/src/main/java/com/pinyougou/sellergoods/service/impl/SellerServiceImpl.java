@@ -60,4 +60,10 @@ public class SellerServiceImpl implements SellerService {
         sellerMapper.update(seller);
 
     }
+
+    //根据用户名去查找用户
+    @Override
+    public TbSeller findByName(String username) {
+        return sellerMapper.findOne(username);
+    }
 }

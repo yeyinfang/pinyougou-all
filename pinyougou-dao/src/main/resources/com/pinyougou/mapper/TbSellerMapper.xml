@@ -75,4 +75,5 @@
     where seller_id=#{sellerId}
   </update>
 
+
 </mapper>

@@ -50,4 +50,6 @@ public interface TbSellerMapper extends Mapper<TbSeller> {
     * @Date: 2018/9/30 
     */ 
     void update(TbSeller seller);
+
+
 }
