@@ -6,9 +6,11 @@ import com.pinyougou.pojo.TbSeller;
 import com.pinyougou.sellergoods.service.SellerService;
 import org.springframework.security.authentication.encoding.BaseDigestPasswordEncoder;
 import org.springframework.security.authentication.encoding.BasePasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -50,6 +52,38 @@ public class SellerController {
             return ResponseResult.success("申请成功，请等待审核结果");
         }catch (Exception e){
             return ResponseResult.error("申请失败，请重新申请");
+        }
+    }
+
+    /** 
+    * @Description: 根据用户名去找到对应的商家信息，然后进行保存的操作
+    * @Param: [loginName] 
+    * @return: com.pinyougou.pojo.TbSeller 
+    * @Author: Yin 
+    * @Date: 2018/10/11 
+    */ 
+    @RequestMapping("/findOne")
+    @ResponseBody
+    public TbSeller findOne(){
+        String loginName = SecurityContextHolder.getContext().getAuthentication().getName();
+        return sellerService.findOne(loginName);
+    }
+
+    /** 
+    * @Description: 修改商家的信息
+    * @Param: [seller] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbSeller> 
+    * @Author: Yin 
+    * @Date: 2018/10/12 
+    */ 
+    @RequestMapping("/update")
+    public ResponseResult<TbSeller> updateSeller(@RequestBody TbSeller seller){
+        try {
+            TbSeller tbSeller = sellerService.updateSeller(seller);
+            return ResponseResult.success("修改成功",tbSeller);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("修改失败，请重试");
         }
     }
 

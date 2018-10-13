@@ -26,6 +26,9 @@ public class ResponseResult<T> implements Serializable {
     public static<T> ResponseResult success(T data){
         return new ResponseResult(0,null,data);
     }
+    public static <T> ResponseResult success(String message,T data){
+        return new ResponseResult(0,message,data);
+    }
     public static ResponseResult error(String message){
         return new ResponseResult(-1,message,null);
     }

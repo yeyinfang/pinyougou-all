@@ -60,4 +60,13 @@ public interface SellerService {
     * @Date: 2018/10/10 
     */ 
     TbSeller findByName(String username);
+
+    /** 
+    * @Description: 修改商家的信息
+    * @Param: [seller] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/10/12 
+    */ 
+    TbSeller updateSeller(TbSeller seller);
 }

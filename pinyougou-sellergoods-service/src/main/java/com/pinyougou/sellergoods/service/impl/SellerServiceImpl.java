@@ -66,4 +66,13 @@ public class SellerServiceImpl implements SellerService {
     public TbSeller findByName(String username) {
         return sellerMapper.findOne(username);
     }
+
+    //修改商家的信息
+    @Override
+    public TbSeller updateSeller(TbSeller seller) {
+        sellerMapper.update(seller);
+        TbSeller tbSeller = sellerMapper.findOne(seller.getSellerId());
+        System.out.println(tbSeller);
+        return tbSeller;
+    }
 }
