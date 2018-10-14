@@ -45,5 +45,17 @@ app.controller('sellerController',function ($scope,$controller,sellerService,log
         })
     };
 
+    //修改密码的操作
+    $scope.updatePassword=function () {
+        //alert(1);
+        sellerService.updatePassword($scope.ybpassword,$scope.xgpassword).success(function (response) {
+            if(response.status==0){//修改成功
+                alert(response.message);
+            }else{//修改失败
+                alert(response.message);
+            }
+        })
+    };
+
 
 })

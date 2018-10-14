@@ -13,5 +13,10 @@ app.service('sellerService',function ($http) {
     //修改商家信息的操作
     this.update=function (entity) {
         return $http.post("../seller/update.do",entity);
+    };
+
+    //修改密码的操作
+    this.updatePassword=function (ybpassword,xgpassword) {
+        return $http.get("../seller/updatePassword.do?password="+ybpassword+"&updatepassword="+xgpassword);
     }
 })

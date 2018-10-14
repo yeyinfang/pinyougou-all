@@ -6,6 +6,7 @@ import com.pinyougou.pojo.TbSeller;
 import com.pinyougou.sellergoods.service.SellerService;
 import org.springframework.security.authentication.encoding.BaseDigestPasswordEncoder;
 import org.springframework.security.authentication.encoding.BasePasswordEncoder;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -84,6 +85,40 @@ public class SellerController {
         }catch (Exception e){
             e.printStackTrace();
             return ResponseResult.error("修改失败，请重试");
+        }
+    }
+
+    
+    /** 
+    * @Description: 修改密码的功能操作
+    * @Param: [passowrd, updatepassword] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbSeller> 
+    * @Author: Yin 
+    * @Date: 2018/10/13 
+    */ 
+    @RequestMapping("/updatePassword")
+    public ResponseResult<TbSeller> updatePassword(String password,String updatepassword){
+        try {
+            //根据名字找到对应的对象且去判断看这个密码是否正确
+            //获取到登陆的用户名的存在
+            String name = SecurityContextHolder.getContext().getAuthentication().getName();
+            //先将密码进行了加密，在传给数据库中过去
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            TbSeller seller = sellerService.findOne(name);
+            System.out.println(seller.getPassword());
+            String ybpassword = encoder.encode(password);
+            System.out.println(ybpassword);
+            if (!seller.getPassword().equals(password)){//这是用户原本密码不正确的时候
+                return ResponseResult.error("输入的原密码是错误的，请重试");
+            }else{//这是用户的密码是正确的，那就进行修改
+                //这个时候将上面查询出来的给进行覆盖掉的操作
+                String jiamiPassword = encoder.encode(updatepassword);
+                seller.setPassword(jiamiPassword);
+                return ResponseResult.success("密码修改成功！");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("密码修改失败");
         }
     }
 
