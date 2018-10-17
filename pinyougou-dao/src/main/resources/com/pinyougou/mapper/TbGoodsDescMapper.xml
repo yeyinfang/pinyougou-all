@@ -13,4 +13,11 @@
     <result column="package_list" jdbcType="VARCHAR" property="packageList" />
     <result column="sale_service" jdbcType="VARCHAR" property="saleService" />
   </resultMap>
+
+  <!--添加-->
+  <insert id="addGoodsDesc">
+    INSERT into tb_goods_desc(goods_id,introduction,specification_items,custom_attribute_items,item_images,
+    package_list,sale_service) VALUES (#{goodsId},#{introduction},#{specificationItems},
+    #{customAttributeItems},#{itemImages},#{packageList},#{saleService})
+  </insert>
 </mapper>
