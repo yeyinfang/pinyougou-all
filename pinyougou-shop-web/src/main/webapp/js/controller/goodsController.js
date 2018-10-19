@@ -1,5 +1,5 @@
 //这是商品管理的控制层的
-app.controller('goodsController',function ($scope,$controller,goodsService,itemCatService) {
+app.controller('goodsController',function ($scope,$controller,goodsService,itemCatService,typeTemplateService) {
     //继承
     $controller('baseController',{$scope:$scope});
     /*
@@ -52,6 +52,19 @@ app.controller('goodsController',function ($scope,$controller,goodsService,itemC
         itemCatService.findOne(newValue).success(function (response) {
             $scope.entity.goods.typeTemplateId = response.typeId;
         })
-        
+    });
+
+    /*
+    * 在模板id进行选择完之后，获取到模板中的东西
+    * */
+    $scope.$watch('entity.goods.typeTemplateId',function (newValue,oldValue) {
+
+        typeTemplateService.findOne(newValue).success(function (response) {
+            //获取到类型的模板
+            $scope.typeTemplate=response;
+            //将获取到的品牌的那些参数,并且转成字符串的类型，为了方便接下来去进行使用
+            $scope.typeTemplate.brandIds = JSON.parse($scope.typeTemplate.brandIds);
+
+        })
     })
 })
