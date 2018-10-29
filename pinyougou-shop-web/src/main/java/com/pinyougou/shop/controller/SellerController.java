@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbSeller;
 import com.pinyougou.sellergoods.service.SellerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.BaseDigestPasswordEncoder;
 import org.springframework.security.authentication.encoding.BasePasswordEncoder;
 import org.springframework.security.core.context.SecurityContext;
@@ -28,6 +29,10 @@ public class SellerController {
     //创建服务层对象
     @Reference
     private SellerService sellerService;
+    //将加密的对象给拿过来进行使用
+    @Autowired
+    private BCryptPasswordEncoder bcryptEncoder;
+
 
     /** 
     * @Description: 增加商家，但是就是刚开始要进行审核的 
@@ -99,20 +104,21 @@ public class SellerController {
     @RequestMapping("/updatePassword")
     public ResponseResult<TbSeller> updatePassword(String password,String updatepassword){
         try {
+
             //根据名字找到对应的对象且去判断看这个密码是否正确
             //获取到登陆的用户名的存在
             String name = SecurityContextHolder.getContext().getAuthentication().getName();
             //先将密码进行了加密，在传给数据库中过去
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+          //  BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             TbSeller seller = sellerService.findOne(name);
-            System.out.println(seller.getPassword());
-            String ybpassword = encoder.encode(password);
-            System.out.println(ybpassword);
-            if (!seller.getPassword().equals(password)){//这是用户原本密码不正确的时候
+            //对比了输入的密码和我从数据库中获取到的密码是不是一样的，true就是一样的
+            boolean b = bcryptEncoder.matches(password, seller.getPassword());
+            System.out.println(b);
+            if (!b){//这是用户原本密码不正确的时候
                 return ResponseResult.error("输入的原密码是错误的，请重试");
             }else{//这是用户的密码是正确的，那就进行修改
                 //这个时候将上面查询出来的给进行覆盖掉的操作
-                String jiamiPassword = encoder.encode(updatepassword);
+                String jiamiPassword = bcryptEncoder.encode(updatepassword);
                 seller.setPassword(jiamiPassword);
                 return ResponseResult.success("密码修改成功！");
             }

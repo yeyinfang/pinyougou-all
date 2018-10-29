@@ -1,10 +1,13 @@
 package com.pinyougou.sellergoods.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.pinyougou.mapper.TbSpecificationOptionMapper;
 import com.pinyougou.mapper.TbTypeTemplateMapper;
 import com.pinyougou.pojo.TbItemCat;
+import com.pinyougou.pojo.TbSpecificationOption;
 import com.pinyougou.pojo.TbTypeTemplate;
 import com.pinyougou.sellergoods.service.TypeTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +24,12 @@ import java.util.Map;
  **/
 @Service
 public class TypeTemplateServiceImpl implements TypeTemplateService {
+    //引入模板的数据库查询的
     @Autowired
     private TbTypeTemplateMapper typeTemplateMapper;
-
+    //引入规格选项的数据库的查询
+    @Autowired
+    private TbSpecificationOptionMapper specificationOptionMapper;
     //查询所有
     @Override
     public List<TbTypeTemplate> findAll() {
@@ -63,6 +69,7 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
         return typeTemplateMapper.findById(id);
     }
 
+    //删除
     @Override
     public void deleteTypeTemplate(Long[] ids) {
         for (Long id : ids) {
@@ -70,13 +77,30 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
         }   
     }
 
+    //查找到模板列表
     @Override
     public List<Map> findTypeList() {
         return typeTemplateMapper.findTypeList();
     }
 
+    //查模板
     @Override
     public TbTypeTemplate findTypeTemplate(Long id) {
         return typeTemplateMapper.findTypeTemplate(id);
+    }
+
+    //查规格属性
+    @Override
+    public List<Map> findSpecList(Long id) {
+        //根据模板的id去找到整个模板，然后就可以获取到了规格选项的路径
+        TbTypeTemplate typeTemplate = typeTemplateMapper.findById(id);
+        //这就将规格选项的那个id给变成一个json的集合往里面去进行存储
+        List<Map> list = JSON.parseArray(typeTemplate.getSpecIds(), Map.class);
+        //找到选项的id，然后在去进行查找
+        for (Map map : list) {
+            List<TbSpecificationOption> specList = specificationOptionMapper.findBySpecId(new Long((Integer)map.get("id")));
+            map.put("options",specList);
+        }
+        return list;
     }
 }

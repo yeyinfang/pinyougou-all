@@ -78,4 +78,14 @@ public interface TypeTemplateService {
     * @Date: 2018/9/8 
     */ 
     TbTypeTemplate findTypeTemplate(Long id);
+
+    
+    /** 
+    * @Description: 获取到扩展属性的东西，根绝type的id 
+    * @Param: [id] 
+    * @return: java.util.List<java.util.Map> 
+    * @Author: Yin 
+    * @Date: 2018/10/25 
+    */ 
+    List<Map> findSpecList(Long id);
 }
