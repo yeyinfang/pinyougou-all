@@ -29,4 +29,13 @@
     <result column="spec" jdbcType="VARCHAR" property="spec" />
     <result column="seller" jdbcType="VARCHAR" property="seller" />
   </resultMap>
+
+  <!--添加的操作-->
+  <insert id="addItem">
+    INSERT into tb_item(title,sell_point,price,stock_count,num,barcode,image,categoryId,status,create_time,
+    update_time,item_sn,cost_pirce,market_price,is_default,goods_id,seller_id,cart_thumbnail,category,brand,
+    spec,seller) VALUES (#{title},#{sellPoint},#{price},#{stockCount},#{num},#{barcode},#{image},#{categoryid},
+    #{status},#{createTime},#{updateTime},#{itemSn},#{costPirce},#{marketPrice},#{isDefault},#{goodsId},
+    #{sellerId},#{cartThumbnail},#{category},#{brand},#{spec},#{seller})
+  </insert>
 </mapper>

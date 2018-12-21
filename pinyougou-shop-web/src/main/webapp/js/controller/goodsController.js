@@ -1,5 +1,5 @@
 //这是商品管理的控制层的
-app.controller('goodsController',function ($scope,$controller,goodsService,itemCatService,typeTemplateService) {
+app.controller('goodsController',function ($scope,$controller,goodsService,itemCatService,typeTemplateService,uploadService) {
     //继承
     $controller('baseController',{$scope:$scope});
     /*
@@ -103,6 +103,62 @@ app.controller('goodsController',function ($scope,$controller,goodsService,itemC
         }else{//这个是列表是空的情况
             $scope.entity.goodsDesc.specificationItems.push({"attributeName":name,"attributeValue":[value]});
         }
+    };
+
+    //创建sku的列表
+    $scope.createItemList=function () {
+        //这是初始的值，也就是这个列表的参数
+        $scope.entity.itemList=[{spec:{},price:0,num:99999,status:'0',isDefault:'0' }];
+        //开始进行定义的操作   也就是将规格的选项列表进行复制
+        //用户选择的集合
+        var items=$scope.entity.goodsDesc.specificationItems;
+
+        //循环遍历
+        for (var i=0;i<items.length;i++){
+            //不断使用传进去的去尽心个使用   其实就像是一个驴打滚的意思
+            $scope.entity.itemList = addColumn($scope.entity.itemList,items[i].attributeName,items[i].attributeValue);
+        }
+    };
+    //增加行数的操作   list:原有的集合   columnName这个是行的名字  columnValue是属性
+    addColumn=function (list,columnName,columnValues) {
+        //新的集合列表
+        var newList=[];
+        //首先就是先循环list的长度，拿到原本的集合
+        for (var i=0;i<list.length;i++){
+            var oldRow=list[i];
+            //循环遍历的是属性
+            for(var j=0;j<columnValues.length;j++){
+                var newRow=JSON.parse(JSON.stringify(oldRow));//深克隆的操作
+                //将克隆的这个给传递到下面的行去
+                newRow.spec[columnName] = columnValues[j];
+                //加入到新集合
+                newList.push(newRow);
+            }
+        }
+        return newList;
+    };
+
+    //上传文件的操作
+
+    $scope.image_entity = {color : '',url : ''}
+    $scope.uploadFile = function () {
+        uploadService.uploadFile().success(function (response) {
+            if(response.status==0){//上传成功的操作
+                $scope.image_entity.url=response.message;//设置文件地址
+            }else{//上传失败的结果
+                alert(response.message);
+            }
+        })
+    };
+
+    //添加图片的操作
+    $scope.add_image_entity=function () {
+        $scope.entity.goodsDesc.itemImages.push($scope.image_entity);
+    }
+    
+    //移除图片的操作
+    $scope.remove_image_entity=function (index) {
+        $scope.entity.goodsDesc.itemImages.splice(index,1);
     }
 
 

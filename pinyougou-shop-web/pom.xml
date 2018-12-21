@@ -104,6 +104,8 @@
             <artifactId>spring-security-config</artifactId>
         </dependency>
 
+        <!--引入fastdfs的依赖-->
+
     </dependencies>
     <build>
         <plugins>

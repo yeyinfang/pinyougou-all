@@ -26,6 +26,8 @@
     <script type="text/javascript" src="../js/base.js"></script>
     <!--引入模板服务层-->
     <script type="text/javascript" src="../js/service/typeTemplateService.js"></script>
+    <!--引入上传服务层-->
+    <script type="text/javascript" src="../js/service/uploadService.js"></script>
     <!--引入分类服务层-->
     <script type="text/javascript" src="../js/service/itemCatService.js"></script>
     <!--引入父控制层-->
@@ -39,7 +41,7 @@
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" ng-app="pyg" ng-controller="goodsController"
-ng-init="selectItemCat1List()">
+      ng-init="selectItemCat1List()">
 
 <!-- 正文区域 -->
 <section class="content">
@@ -101,13 +103,14 @@ ng-init="selectItemCat1List()">
 
                         <div class="col-md-2 title">商品名称</div>
                         <div class="col-md-10 data">
-                            <input type="text" class="form-control" placeholder="商品名称" ng-model="entity.goods.goodsName">
+                            <input type="text" class="form-control" placeholder="商品名称"
+                                   ng-model="entity.goods.goodsName">
                         </div>
 
                         <div class="col-md-2 title">品牌</div>
                         <div class="col-md-10 data">
                             <select class="form-control" ng-model="entity.goods.brandId"
-                            ng-options="item.id as item.text for item in typeTemplate.brandIds"></select>
+                                    ng-options="item.id as item.text for item in typeTemplate.brandIds"></select>
                         </div>
 
                         <div class="col-md-2 title">副标题</div>
@@ -131,12 +134,14 @@ ng-init="selectItemCat1List()">
                         <div class="col-md-2 title rowHeight2x">包装列表</div>
                         <div class="col-md-10 data rowHeight2x">
 
-                            <textarea rows="4" class="form-control" placeholder="包装列表" ng-model="entity.goodsDesc.packageList"></textarea>
+                            <textarea rows="4" class="form-control" placeholder="包装列表"
+                                      ng-model="entity.goodsDesc.packageList"></textarea>
                         </div>
 
                         <div class="col-md-2 title rowHeight2x">售后服务</div>
                         <div class="col-md-10 data rowHeight2x">
-                            <textarea rows="4" class="form-control" placeholder="售后服务" ng-model="entity.goodsDesc.saleService"></textarea>
+                            <textarea rows="4" class="form-control" placeholder="售后服务"
+                                      ng-model="entity.goodsDesc.saleService"></textarea>
                         </div>
 
 
@@ -148,7 +153,8 @@ ng-init="selectItemCat1List()">
                     <div class="row data-type">
                         <!-- 颜色图片 -->
                         <div class="btn-group">
-                            <button type="button" class="btn btn-default" title="新建" data-target="#uploadModal"
+                            <button type="button" class="btn btn-default" title="新建" ng-click="image_entity={}"
+                                    data-target="#uploadModal"
                                     data-toggle="modal"><i class="fa fa-file-o"></i> 新建
                             </button>
 
@@ -163,15 +169,15 @@ ng-init="selectItemCat1List()">
                                 <th class="sorting">操作</th>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr ng-repeat="pojo in entity.goodsDesc.itemImages">
                                 <td>
-
+                                    {{pojo.color}}
                                 </td>
                                 <td>
-                                    <img alt="" src="" width="100px" height="100px">
+                                    <img alt="" src="{{pojo.url}}" width="100px" height="100px">
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-default" title="删除"><i
+                                    <button type="button" class="btn btn-default" title="删除" ng-click="remove_image_entity($index)"><i
                                             class="fa fa-trash-o"></i> 删除
                                     </button>
                                 </td>
@@ -185,7 +191,7 @@ ng-init="selectItemCat1List()">
 
                 <!--扩展属性-->
                 <div class="tab-pane" id="customAttribute">
-                    <div class="row data-type" >
+                    <div class="row data-type">
                         <div ng-repeat="pojo in entity.goodsDesc.customAttributeItems">
                             <div class="col-md-2 title">{{pojo.text}}</div>
                             <div class="col-md-10 data">
@@ -201,21 +207,25 @@ ng-init="selectItemCat1List()">
                     <div class="row data-type">
                         <div class="col-md-2 title">是否启用规格</div>
                         <div class="col-md-10 data">
-                            <input type="checkbox">
+                            <input type="checkbox" ng-model="entity.goods.isEnableSpec" ng-true-value="1"
+                                   ng-false-value="0">
                         </div>
                     </div>
                     <p>
 
-                    <div>
+                    <div ng-if="entity.goods.isEnableSpec==1">
 
                         <div class="row data-type">
                             {{entity.goodsDesc.specificationItems}}
+
+                            {{entity.itemList}}
                             <div ng-repeat="pojo in specList">
                                 <div class="col-md-2 title">{{pojo.text}}</div>
                                 <div class="col-md-10 data">
 					                               
 					                            <span ng-repeat="options in pojo.options">
-					                            	<input type="checkbox" ng-click="updateSpecAttribute($event,pojo.text,options.optionName)">{{options.optionName}}
+					                            	<input type="checkbox"
+                                                           ng-click="updateSpecAttribute($event,pojo.text,options.optionName);createItemList()">{{options.optionName}}
 					                            </span>
                                 </div>
                             </div>
@@ -225,113 +235,54 @@ ng-init="selectItemCat1List()">
                     </div>
 
 
-                        <div class="row data-type">
-                            <table class="table table-bordered table-striped table-hover dataTable">
-                                <thead>
-                                <tr>
-                                    <th class="sorting">屏幕尺寸</th>
-                                    <th class="sorting">网络制式</th>
-                                    <th class="sorting">价格</th>
-                                    <th class="sorting">库存</th>
-                                    <th class="sorting">是否启用</th>
-                                    <th class="sorting">是否默认</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        4.0
-                                    </td>
-                                    <td>
-                                        3G
-                                    </td>
-                                    <td>
-                                        <input class="form-control" placeholder="价格">
-                                    </td>
-                                    <td>
-                                        <input class="form-control" placeholder="库存数量">
-                                    </td>
-                                    <td>
-                                        <input type="checkbox">
-                                    </td>
-                                    <td>
-                                        <input type="checkbox">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        4.0
-                                    </td>
-                                    <td>
-                                        4G
-                                    </td>
-                                    <td>
-                                        <input class="form-control" placeholder="价格">
-                                    </td>
-                                    <td>
-                                        <input class="form-control" placeholder="库存数量">
-                                    </td>
-                                    <td>
-                                        <input type="checkbox">
-                                    </td>
-                                    <td>
-                                        <input type="checkbox">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        5.0
-                                    </td>
-                                    <td>
-                                        3G
-                                    </td>
-                                    <td>
-                                        <input class="form-control" placeholder="价格">
-                                    </td>
-                                    <td>
-                                        <input class="form-control" placeholder="库存数量">
-                                    </td>
-                                    <td>
-                                        <input type="checkbox">
-                                    </td>
-                                    <td>
-                                        <input type="checkbox">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        5.0
-                                    </td>
-                                    <td>
-                                        4G
-                                    </td>
-                                    <td>
-                                        <input class="form-control" placeholder="价格">
-                                    </td>
-                                    <td>
-                                        <input class="form-control" placeholder="库存数量">
-                                    </td>
-                                    <td>
-                                        <input type="checkbox">
-                                    </td>
-                                    <td>
-                                        <input type="checkbox">
-                                    </td>
-                                </tr>
+                    <div class="row data-type">
+                        <table class="table table-bordered table-striped table-hover dataTable">
+                            <thead>
+                            <tr>
+                                <th class="sorting" ng-repeat="item in entity.goodsDesc.specificationItems">
+                                    {{item.attributeName}}
+                                </th>
+                                <th class="sorting">价格</th>
+                                <th class="sorting">库存</th>
+                                <th class="sorting">是否启用</th>
+                                <th class="sorting">是否默认</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="pojo in entity.itemList">
+                                <td ng-repeat="item in entity.goodsDesc.specificationItems">
+                                    {{pojo.spec[item.attributeName]}}
+                                </td>
 
-                                </tbody>
-                            </table>
+                                <td>
+                                    <input class="form-control" placeholder="价格" ng-model="pojo.price">
+                                </td>
+                                <td>
+                                    <input class="form-control" placeholder="库存数量" ng-model="pojo.num">
+                                </td>
+                                <td>
+                                    <input type="checkbox" ng-model="pojo.status" ng-true-value="1" ng-false-value="0">
+                                </td>
+                                <td>
+                                    <input type="checkbox" ng-model="pojo.isDefault" ng-true-value="1"
+                                           ng-false-value="0">
+                                </td>
+                            </tr>
 
-                        </div>
+
+                            </tbody>
+                        </table>
 
                     </div>
-                </div>
 
+                </div>
             </div>
-            <!--tab内容/-->
-            <!--表单内容/-->
 
         </div>
+        <!--tab内容/-->
+        <!--表单内容/-->
+
+    </div>
 
 
     </div>
@@ -356,7 +307,7 @@ ng-init="selectItemCat1List()">
                 <table class="table table-bordered table-striped">
                     <tr>
                         <td>颜色</td>
-                        <td><input class="form-control" placeholder="颜色"></td>
+                        <td><input class="form-control" placeholder="颜色" ng-model="image_entity.color"></td>
                     </tr>
                     <tr>
                         <td>商品图片</td>
@@ -365,12 +316,12 @@ ng-init="selectItemCat1List()">
                                 <tr>
                                     <td>
                                         <input type="file" id="file"/>
-                                        <button class="btn btn-primary" type="button">
+                                        <button class="btn btn-primary" type="button" ng-click="uploadFile()">
                                             上传
                                         </button>
                                     </td>
                                     <td>
-                                        <img src="" width="200px" height="200px">
+                                        <img src="{{image_entity.url}}" width="200px" height="200px">
                                     </td>
                                 </tr>
                             </table>
@@ -380,7 +331,9 @@ ng-init="selectItemCat1List()">
 
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">保存</button>
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="add_image_entity()">
+                    保存
+                </button>
                 <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
             </div>
         </div>
