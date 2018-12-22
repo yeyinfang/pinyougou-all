@@ -3,6 +3,8 @@ package com.pinyougou.mapper;
 import com.github.abel533.mapper.Mapper;
 import com.pinyougou.pojo.TbGoods;
 
+import java.util.List;
+
 public interface TbGoodsMapper extends Mapper<TbGoods> {
     /** 
     * @Description: 添加商品
@@ -12,4 +14,13 @@ public interface TbGoodsMapper extends Mapper<TbGoods> {
     * @Date: 2018/10/15 
     */ 
     void addGoods(TbGoods goods);
+
+    /** 
+    * @Description: 条件查询商品，也就是显示商品的操作 
+    * @Param: [goods] 
+    * @return: java.util.List<com.pinyougou.pojo.TbGoods> 
+    * @Author: Yin 
+    * @Date: 2018/12/21 
+    */ 
+    List<TbGoods> findByCondition(TbGoods goods);
 }

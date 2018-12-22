@@ -35,4 +35,18 @@
     #{caption},#{category1Id},#{category2Id},#{category3Id},#{smallPic},#{price},#{typeTemplateId},
     #{isEnableSpec},#{isDelete})
   </insert>
+
+  <!--条件查询的操作-->
+  <select id="findByCondition" resultMap="BaseResultMap">
+    SELECT * FROM tb_goods
+    <where>
+     seller_id = #{sellerId}
+    <if test='goodsName!=null and goodsName=""'>
+      and goods_name like  '%${goodsName}%'
+    </if>
+    <if test='auditStatus!=null and auditStatus!=""'>
+      and audit_status=#{auditStatus}
+    </if>
+    </where>
+  </select>
 </mapper>

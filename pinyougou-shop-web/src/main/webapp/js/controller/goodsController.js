@@ -154,12 +154,40 @@ app.controller('goodsController',function ($scope,$controller,goodsService,itemC
     //添加图片的操作
     $scope.add_image_entity=function () {
         $scope.entity.goodsDesc.itemImages.push($scope.image_entity);
-    }
+    };
     
     //移除图片的操作
     $scope.remove_image_entity=function (index) {
         $scope.entity.goodsDesc.itemImages.splice(index,1);
-    }
+    };
+
+    //条件查询的操作
+    //定义出查询的条件体
+    $scope.searchEntity={}
+    $scope.findByCondition=function (page,rows) {
+        goodsService.findByCondition(page,rows,$scope.searchEntity).success(function (response) {
+            //更新数据列表
+            $scope.paginationConf.totalItems=response.total;//总记录数
+            $scope.list=response.rows;//给列表变量赋值
+        });
+    };
+
+    //定义出状态的值
+    $scope.status=['未审核','已审核','审核未通过','关闭'];
+
+    //商品分类列表
+    $scope.itemCatList=[];
+
+    //获取到整个分类的值在来进行操作
+    $scope.findItemCatList=function () {
+        itemCatService.findAll().success(function (response) {
+            //由于获取到的是一个list集合，所以可以循环便利，在封装成为一个新的数组
+            for(var i=0;i<response.length;i++){
+                //需要根据分类ID得到分类名称，所以我们将返回的分页结果以数组形式再次封装
+                $scope.itemCatList[response[i].id]=response[i].name;
+            }
+        })
+    };
 
 
 })

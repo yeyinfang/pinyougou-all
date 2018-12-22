@@ -2,16 +2,16 @@ package com.pinyougou.sellergoods.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.pinyougou.entity.Goods;
 import com.pinyougou.mapper.*;
-import com.pinyougou.pojo.TbBrand;
-import com.pinyougou.pojo.TbItem;
-import com.pinyougou.pojo.TbItemCat;
-import com.pinyougou.pojo.TbSeller;
+import com.pinyougou.pojo.*;
 import com.pinyougou.sellergoods.service.GoodsSerrvice;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,6 +86,24 @@ public class GoodsSerrviceImpl implements GoodsSerrvice {
             setItemValue(goods,item);
             itemMapper.addItem(item);
         }
+    }
+
+    @Override
+    public Map<String, Object> findByCondition(TbGoods goods, int page, int rows) {
+        PageHelper.startPage(page,rows);
+        Map<String ,Object> map = new HashMap<>();
+        //进行判断，看是否存在这个商家，以防查找出来的不是这个商家
+        if (goods.getSellerId()!=null && goods.getSellerId().length()>0){
+            //查找到所有的商品的操作。也有可能是条件查询
+            System.out.println(goods);
+            List<TbGoods> goodsList = goodsMapper.findByCondition(goods);
+            System.out.println(goodsList);
+            PageInfo<TbGoods> info = new PageInfo(goodsList);
+            map.put("total",info.getTotal());
+            map.put("rows",info.getList());
+        }
+
+        return map;
     }
 
 

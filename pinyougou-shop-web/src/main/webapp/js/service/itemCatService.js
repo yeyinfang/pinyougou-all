@@ -9,4 +9,9 @@ app.service('itemCatService',function ($http) {
     this.findOne=function (parentId) {
         return $http.get("../itemCat/findOne.do?parentId="+parentId);
     };
+
+    //查询到所有的
+    this.findAll=function () {
+        return $http.get("../itemCat/findAll.do");
+    }
 })

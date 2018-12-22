@@ -13,7 +13,7 @@
 
   <!--查找到所有的分类的值-->
   <select id="findAll" resultMap="BaseResultMap">
-    SELECT * FROM tb_item_cat where parent_id=0
+    SELECT * FROM tb_item_cat
   </select>
 
   <!--查找到父类的id-->

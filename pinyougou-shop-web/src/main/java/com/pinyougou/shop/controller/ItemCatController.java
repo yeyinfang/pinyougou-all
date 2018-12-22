@@ -45,4 +45,16 @@ public class ItemCatController {
     public TbItemCat findOne(Long parentId){
         return itemCatService.findById(parentId);
     }
+
+    /** 
+    * @Description: 查询到所有的分类的信息
+    * @Param: [] 
+    * @return: java.util.List<com.pinyougou.pojo.TbItemCat> 
+    * @Author: Yin 
+    * @Date: 2018/12/22 
+    */ 
+    @RequestMapping("/findAll")
+    public List<TbItemCat> findAll(){
+        return itemCatService.findAll();
+    }
 }
