@@ -36,6 +36,15 @@
     #{isEnableSpec},#{isDelete})
   </insert>
 
+  <!--修改的操作-->
+  <update id="updateGoods">
+    UPDATE tb_goods SET seller_id=#{sellerId},goods_name=#{goodsName},default_item_id=#{defaultItemId},
+    audit_status=#{auditStatus},is_marketable=#{isMarketable},brand_id=#{brandId},
+   caption =#{caption},category1_id=#{category1Id},category2_id=#{category2Id},category3_id=#{category3Id},
+   small_pic=#{smallPic},price=#{price},type_template_id=#{typeTemplateId},
+    is_enable_spec=#{isEnableSpec},is_delete=#{isDelete} WHERE id=#{id}
+  </update>
+
   <!--条件查询的操作-->
   <select id="findByCondition" resultMap="BaseResultMap">
     SELECT * FROM tb_goods
@@ -54,4 +63,6 @@
   <select id="findById" resultMap="BaseResultMap">
     SELECT * FROM tb_goods WHERE id=#{id}
   </select>
+
+
 </mapper>

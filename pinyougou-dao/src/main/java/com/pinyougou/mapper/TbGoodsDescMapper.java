@@ -21,4 +21,13 @@ public interface TbGoodsDescMapper extends Mapper<TbGoodsDesc> {
     * @Date: 2018/12/22 
     */ 
     TbGoodsDesc findById(Long id);
+
+    /** 
+    * @Description: 修改的操作
+    * @Param: [goodsDesc] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/12/23 
+    */ 
+    void updateGoodsDesc(TbGoodsDesc goodsDesc);
 }

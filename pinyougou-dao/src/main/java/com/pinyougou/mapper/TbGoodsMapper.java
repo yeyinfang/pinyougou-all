@@ -32,4 +32,13 @@ public interface TbGoodsMapper extends Mapper<TbGoods> {
     * @Date: 2018/12/22 
     */ 
     TbGoods findById(Long id);
+
+    /** 
+    * @Description: 修改商品
+    * @Param: [goods] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/12/23 
+    */ 
+    void updateGoods(TbGoods goods);
 }

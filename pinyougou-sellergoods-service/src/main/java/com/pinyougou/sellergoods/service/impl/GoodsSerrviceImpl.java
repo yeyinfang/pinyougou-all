@@ -139,10 +139,8 @@ public class GoodsSerrviceImpl implements GoodsSerrvice {
         //更改的商品之后的状态要改成0，也就是未审核的状态
         goods.getGoods().setAuditStatus("0");
         //都进行更新的操作
-        //采用的是mapper的更新方法
-        System.out.println(goods.getGoods());
-        goodsMapper.updateByPrimaryKey(goods.getGoods());
-        goodsDescMapper.updateByPrimaryKey(goods.getGoodsDesc());
+        goodsMapper.updateGoods(goods.getGoods());
+        goodsDescMapper.updateGoodsDesc(goods.getGoodsDesc());
 
         //删除掉之前的sku列表，在进行重新的增加
         itemMapper.deleteSku(goods.getGoods().getId());
@@ -174,11 +172,14 @@ public class GoodsSerrviceImpl implements GoodsSerrvice {
         //根绝id查找到分类的这个模板对象
         TbItemCat itemCat = itemCatMapper.findById(item.getCategoryid());
         item.setCategory(itemCat.getName());
+
         //设置品牌对象
         //先进行查询
         Long brandId = goods.getGoods().getBrandId();
-        TbBrand brand = brandMapper.findById(new Integer(brandId + ""));
-        item.setBrand(brand.getName());
+        if (brandId!=null){
+            TbBrand brand = brandMapper.findById(new Integer(brandId + ""));
+            item.setBrand(brand.getName());
+        }
         //设置商家的对象
         TbSeller seller = sellerMapper.findOne(goods.getGoods().getSellerId());
         item.setSeller(seller.getNickName());//也就是这个商店的名称所在
