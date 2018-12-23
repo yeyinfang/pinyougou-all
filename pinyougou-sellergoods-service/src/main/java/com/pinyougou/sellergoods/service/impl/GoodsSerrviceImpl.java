@@ -178,6 +178,15 @@ public class GoodsSerrviceImpl implements GoodsSerrvice {
         return map;
     }
 
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        for (Long id : ids) {
+            TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
+            tbGoods.setAuditStatus(status);
+            goodsMapper.updateByPrimaryKey(tbGoods);
+        }
+    }
+
 
     /** 
     * @Description: 启用规格的情况 

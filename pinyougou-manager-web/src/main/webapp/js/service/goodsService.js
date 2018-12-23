@@ -7,5 +7,10 @@ app.service('goodsService',function ($http) {
     //数据的回显，也就是详情页面的显示
     this.findOne=function (id) {
         return $http.get("../goods/findOne.do?id="+id);
-    }
+    };
+
+    //修改状态
+    this.updateStatus=function (ids,status) {
+        return $http.get("../goods/updateStatus.do?ids="+ids+"&status="+status);
+    };
 })

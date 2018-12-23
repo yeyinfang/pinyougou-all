@@ -52,4 +52,13 @@ public interface GoodsSerrvice {
     * @Date: 2018/12/23 
     */ 
     Map<String,Object> findAll(TbGoods goods, int page, int rows);
+
+    /** 
+    * @Description: 更新状态的操作 
+    * @Param: [ids, status] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/12/23 
+    */ 
+    void updateStatus(Long[] ids, String status);
 }
