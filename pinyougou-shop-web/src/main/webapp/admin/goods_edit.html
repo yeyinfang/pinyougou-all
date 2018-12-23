@@ -177,7 +177,8 @@
                                     <img alt="" src="{{pojo.url}}" width="100px" height="100px">
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-default" title="删除" ng-click="remove_image_entity($index)"><i
+                                    <button type="button" class="btn btn-default" title="删除"
+                                            ng-click="remove_image_entity($index)"><i
                                             class="fa fa-trash-o"></i> 删除
                                     </button>
                                 </td>
@@ -216,9 +217,9 @@
                     <div ng-if="entity.goods.isEnableSpec==1">
 
                         <div class="row data-type">
-                           <!-- {{entity.goodsDesc.specificationItems}}
+                            <!-- {{entity.goodsDesc.specificationItems}}
 
-                            {{entity.itemList}}-->
+                             {{entity.itemList}}-->
                             <div ng-repeat="pojo in specList">
                                 <div class="col-md-2 title">{{pojo.text}}</div>
                                 <div class="col-md-10 data">
@@ -290,7 +291,7 @@
     <div class="btn-toolbar list-toolbar">
         <button class="btn btn-primary" ng-click="addGoods()"><i class="fa fa-save"></i>保存</button>
         <button class="btn btn-default">
-            <a href="goods.html" >返回列表</a>
+            <a href="goods.html">返回列表</a>
         </button>
     </div>
 

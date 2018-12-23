@@ -29,4 +29,9 @@ app.service('itemCatService',function ($http) {
     this.dele=function (ids) {
         return $http.get("../itemCat/delete.do?ids="+ids);
     }
+
+    //查找全部的操作
+    this.findAll=function () {
+        return $http.get("../itemCat/findAll.do");
+    }
 })

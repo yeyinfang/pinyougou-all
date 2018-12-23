@@ -2,12 +2,14 @@ package com.pinyougou.sellergoods.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
+import com.github.abel533.entity.Example;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.pinyougou.entity.Goods;
 import com.pinyougou.mapper.*;
 import com.pinyougou.pojo.*;
 import com.pinyougou.sellergoods.service.GoodsSerrvice;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -106,7 +108,7 @@ public class GoodsSerrviceImpl implements GoodsSerrvice {
         //进行判断，看是否存在这个商家，以防查找出来的不是这个商家
         if (goods.getSellerId()!=null && goods.getSellerId().length()>0){
             //查找到所有的商品的操作。也有可能是条件查询
-            System.out.println(goods);
+
             List<TbGoods> goodsList = goodsMapper.findByCondition(goods);
             System.out.println(goodsList);
             PageInfo<TbGoods> info = new PageInfo(goodsList);
@@ -139,6 +141,7 @@ public class GoodsSerrviceImpl implements GoodsSerrvice {
         //更改的商品之后的状态要改成0，也就是未审核的状态
         goods.getGoods().setAuditStatus("0");
         //都进行更新的操作
+        //goodsMapper.updateByPrimaryKey(goods.getGoods());
         goodsMapper.updateGoods(goods.getGoods());
         goodsDescMapper.updateGoodsDesc(goods.getGoodsDesc());
 
@@ -147,6 +150,32 @@ public class GoodsSerrviceImpl implements GoodsSerrvice {
 
         //重新进行添加
         saveItemList(goods);
+    }
+
+    @Override
+    public Map<String, Object> findAll(TbGoods goods, int page, int rows) {
+        PageHelper.startPage(page,rows);
+        //根据状态进行查询
+        Map<String ,Object> map = new HashMap<>();
+        Example example = new Example(TbGoods.class);
+        Example.Criteria criteria = example.createCriteria();
+        if (goods!=null){//也就是有这个对象的情况
+            //判断状态的情况
+            //select * from tb_goods where auditStatus=?
+            if (StringUtils.isNotBlank(goods.getAuditStatus())){
+                criteria.andEqualTo("auditStatus",goods.getAuditStatus());
+            }
+            //这是商品名
+            if (StringUtils.isNotBlank(goods.getGoodsName())){
+                criteria.andEqualTo("goodsName",goods.getGoodsName());
+            }
+        }
+        //进行查询
+        List<TbGoods> goodsList = goodsMapper.selectByExample(example);
+        PageInfo<TbGoods> info = new PageInfo<TbGoods>(goodsList);
+        map.put("total",info.getTotal());
+        map.put("rows",info.getList());
+        return map;
     }
 
 

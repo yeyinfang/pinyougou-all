@@ -43,4 +43,13 @@ public interface GoodsSerrvice {
     * @Date: 2018/12/22 
     */ 
     void updateGoods(Goods goods);
+
+    /** 
+    * @Description: 查询所有的商品的意思
+    * @Param: [goods, page, rows] 
+    * @return: java.util.Map<java.lang.String,java.lang.Object> 
+    * @Author: Yin 
+    * @Date: 2018/12/23 
+    */ 
+    Map<String,Object> findAll(TbGoods goods, int page, int rows);
 }
