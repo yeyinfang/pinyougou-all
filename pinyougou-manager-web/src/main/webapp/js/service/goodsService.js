@@ -3,4 +3,9 @@ app.service('goodsService',function ($http) {
     this.findByCondition=function (page,rows,entity) {
         return $http.post("../goods/findAll.do?page="+page+"&rows="+rows,entity);
     };
+
+    //数据的回显，也就是详情页面的显示
+    this.findOne=function (id) {
+        return $http.get("../goods/findOne.do?id="+id);
+    }
 })

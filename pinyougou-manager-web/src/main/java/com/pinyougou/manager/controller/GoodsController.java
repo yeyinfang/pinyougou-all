@@ -35,4 +35,17 @@ public class GoodsController {
     public Map<String,Object> findAll(@RequestBody TbGoods goods, int page, int rows){
         return goodsSerrvice.findAll(goods,page,rows);
     }
+
+    /** 
+    * @Description: 根据id去进行查询的操作 
+    * @Param: [id] 
+    * @return: com.pinyougou.entity.Goods 
+    * @Author: Yin 
+    * @Date: 2018/12/23 
+    */ 
+    @RequestMapping("/findOne")
+    @ResponseBody
+    public Goods findOne(Long id){
+        return goodsSerrvice.findOne(id);
+    }
 }
