@@ -38,4 +38,14 @@
     #{status},#{createTime},#{updateTime},#{itemSn},#{costPirce},#{marketPrice},#{isDefault},#{goodsId},
     #{sellerId},#{cartThumbnail},#{category},#{brand},#{spec},#{seller})
   </insert>
+  
+  <!--根绝商品id去进行查询-->
+  <select id="findById" resultMap="BaseResultMap">
+    SELECT * from tb_item WHERE goods_id = #{id}
+  </select>
+  
+  <!--删除sku列表-->
+  <delete id="deleteSku" parameterType="java.lang.Long">
+    DELETE FROM tb_item WHERE goods_id = #{id}
+  </delete>
 </mapper>

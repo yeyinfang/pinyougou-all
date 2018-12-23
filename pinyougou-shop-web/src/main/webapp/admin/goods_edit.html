@@ -41,7 +41,7 @@
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" ng-app="pyg" ng-controller="goodsController"
-      ng-init="selectItemCat1List()">
+      ng-init="selectItemCat1List();findOne()">
 
 <!-- 正文区域 -->
 <section class="content">
@@ -216,16 +216,17 @@
                     <div ng-if="entity.goods.isEnableSpec==1">
 
                         <div class="row data-type">
-                            {{entity.goodsDesc.specificationItems}}
+                           <!-- {{entity.goodsDesc.specificationItems}}
 
-                            {{entity.itemList}}
+                            {{entity.itemList}}-->
                             <div ng-repeat="pojo in specList">
                                 <div class="col-md-2 title">{{pojo.text}}</div>
                                 <div class="col-md-10 data">
 					                               
 					                            <span ng-repeat="options in pojo.options">
 					                            	<input type="checkbox"
-                                                           ng-click="updateSpecAttribute($event,pojo.text,options.optionName);createItemList()">{{options.optionName}}
+                                                           ng-click="updateSpecAttribute($event,pojo.text,options.optionName);createItemList()"
+                                                           ng-checked="checkAttributeValue(pojo.text,options.optionName)">{{options.optionName}}
 					                            </span>
                                 </div>
                             </div>
@@ -288,7 +289,9 @@
     </div>
     <div class="btn-toolbar list-toolbar">
         <button class="btn btn-primary" ng-click="addGoods()"><i class="fa fa-save"></i>保存</button>
-        <button class="btn btn-default">返回列表</button>
+        <button class="btn btn-default">
+            <a href="goods.html" >返回列表</a>
+        </button>
     </div>
 
 </section>

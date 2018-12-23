@@ -49,4 +49,9 @@
     </if>
     </where>
   </select>
+  
+  <!--根据id去进行查找-->
+  <select id="findById" resultMap="BaseResultMap">
+    SELECT * FROM tb_goods WHERE id=#{id}
+  </select>
 </mapper>

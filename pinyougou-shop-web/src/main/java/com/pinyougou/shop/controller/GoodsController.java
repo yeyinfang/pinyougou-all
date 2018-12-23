@@ -68,4 +68,44 @@ public class GoodsController {
         return goodsSerrvice.findByCondition(goods,page,rows);
         //return null;
     }
+
+    /** 
+    * @Description: 根据id进行回显
+    * @Param: [id] 
+    * @return: com.pinyougou.entity.Goods 
+    * @Author: Yin 
+    * @Date: 2018/12/22 
+    */
+    @RequestMapping("/findOne")
+    @ResponseBody
+    public Goods findOne(Long id){
+        return goodsSerrvice.findOne(id);
+    }
+
+    /** 
+    * @Description: 商品的更新操作
+    * @Param: [goods] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.entity.Goods> 
+    * @Author: Yin 
+    * @Date: 2018/12/22 
+    */
+    @RequestMapping("/update")
+    public ResponseResult<Goods> updateGoods(@RequestBody Goods goods){
+        //出于安全的考虑，我们只能修改自己商店的商品，为不能修改他人的
+        Goods goods1 = goodsSerrvice.findOne(goods.getGoods().getId());
+        //获取到当前的用户的操作
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!goods1.getGoods().getSellerId().equals(name) || !goods.getGoods().getSellerId().equals(name)){
+            return ResponseResult.error("这是非法的操作！！请注意");
+        }else{
+            try {
+                goodsSerrvice.updateGoods(goods);
+                return ResponseResult.success("修改成功！");
+            }catch (Exception e){
+                e.printStackTrace();
+                return ResponseResult.error("修改失败！请重新尝试");
+            }
+        }
+
+    }
 }

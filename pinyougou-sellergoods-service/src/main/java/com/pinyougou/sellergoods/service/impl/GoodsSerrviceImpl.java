@@ -51,9 +51,20 @@ public class GoodsSerrviceImpl implements GoodsSerrvice {
         //获取到存进来的列表的值
         List<TbItem> itemList = goods.getItemList();
         //判断是否启动了规格的管理操作
+        saveItemList(goods);
+    }
+    
+    /** 
+    * @Description: 抽取这个方法来进行操作，看起来比较简洁
+    * @Param: [goods] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/12/23 
+    */ 
+    public void saveItemList(Goods goods){
         if("1".equals(goods.getGoods().getIsEnableSpec())){
 //这个是要进行保存
-            for (TbItem item : itemList) {
+            for (TbItem item : goods.getItemList()) {
                 //标题 就是sku+spec那些的关键字 为了检索起作用  索尼(SONY) Xperia Z Ultra (XL39h) 黑色 联通3G手机
                 //获取到商品的标题
                 String title = goods.getGoods().getGoodsName();
@@ -106,6 +117,40 @@ public class GoodsSerrviceImpl implements GoodsSerrvice {
         return map;
     }
 
+    @Override
+    public Goods findOne(Long id) {
+        Goods goods = new Goods();
+        //根据id查询到TbGoods的商品的信息
+        TbGoods tbGoods = goodsMapper.findById(id);
+        //进行设置
+        goods.setGoods(tbGoods);
+        //查找到goodDesc的信息
+        TbGoodsDesc tbGoodsDesc = goodsDescMapper.findById(id);
+        //设置
+        goods.setGoodsDesc(tbGoodsDesc);
+        //设置sku的列表
+        List<TbItem> item = itemMapper.findById(id);
+        goods.setItemList(item);
+        return goods;
+    }
+
+    @Override
+    public void updateGoods(Goods goods) {
+        //更改的商品之后的状态要改成0，也就是未审核的状态
+        goods.getGoods().setAuditStatus("0");
+        //都进行更新的操作
+        //采用的是mapper的更新方法
+        System.out.println(goods.getGoods());
+        goodsMapper.updateByPrimaryKey(goods.getGoods());
+        goodsDescMapper.updateByPrimaryKey(goods.getGoodsDesc());
+
+        //删除掉之前的sku列表，在进行重新的增加
+        itemMapper.deleteSku(goods.getGoods().getId());
+
+        //重新进行添加
+        saveItemList(goods);
+    }
+
 
     /** 
     * @Description: 启用规格的情况 
@@ -115,7 +160,6 @@ public class GoodsSerrviceImpl implements GoodsSerrvice {
     * @Date: 2018/11/5 
     */ 
     public void setItemValue(Goods goods, TbItem item) {
-
         //设置分类的id，设置的是三级分类
         item.setCategoryid(goods.getGoods().getCategory3Id());
         //设置创建时间

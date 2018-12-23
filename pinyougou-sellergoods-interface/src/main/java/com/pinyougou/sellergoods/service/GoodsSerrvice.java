@@ -1,6 +1,7 @@
 package com.pinyougou.sellergoods.service;
 
 import com.pinyougou.entity.Goods;
+import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbGoods;
 
 import java.util.Map;
@@ -24,4 +25,22 @@ public interface GoodsSerrvice {
     * @Date: 2018/12/21 
     */ 
     Map<String,Object> findByCondition(TbGoods goods, int page, int rows);
+
+    /** 
+    * @Description: 根据id去进行回显的操作
+    * @Param: [id] 
+    * @return: Goods
+    * @Author: Yin 
+    * @Date: 2018/12/22 
+    */
+    Goods findOne(Long id);
+
+    /** 
+    * @Description: 修改商品的操作 
+    * @Param: [goods] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/12/22 
+    */ 
+    void updateGoods(Goods goods);
 }

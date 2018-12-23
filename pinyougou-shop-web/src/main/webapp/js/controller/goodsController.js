@@ -1,5 +1,5 @@
 //这是商品管理的控制层的
-app.controller('goodsController',function ($scope,$controller,goodsService,itemCatService,typeTemplateService,uploadService) {
+app.controller('goodsController',function ($scope,$controller,$location,goodsService,itemCatService,typeTemplateService,uploadService) {
     //继承
     $controller('baseController',{$scope:$scope});
     /*
@@ -7,9 +7,16 @@ app.controller('goodsController',function ($scope,$controller,goodsService,itemC
     * */
     $scope.addGoods=function () {
         $scope.entity.goodsDesc.introduction=editor.html();
-        goodsService.addGoods($scope.entity).success(function (response) {
+        var serviceObject;//服务层对象
+        if ($scope.entity.goods.id!=null){//有id的情况
+            serviceObject=goodsService.update($scope.entity);
+        }else{
+            serviceObject=goodsService.addGoods($scope.entity);
+        }
+        serviceObject.success(function (response) {
             if(response.status==0){
-                alert(response.message);
+                //alert(response.message);
+                location.href="goods.html";//跳转到商品列表页
                 $scope.entity={};//这是清空实体
                 editor.html('');//清空编辑器里面的东西
             }else{
@@ -67,8 +74,14 @@ app.controller('goodsController',function ($scope,$controller,goodsService,itemC
             $scope.typeTemplate=response;
             //将获取到的品牌的那些参数,并且转成字符串的类型，为了方便接下来去进行使用
             $scope.typeTemplate.brandIds = JSON.parse($scope.typeTemplate.brandIds);
-            //将获取到扩展属性，转成字符串的类型
-            $scope.entity.goodsDesc.customAttributeItems=JSON.parse( $scope.typeTemplate.customAttributeItems);//扩展属性
+
+            //先进行判断是不是存在了id，不存在的话在去获取扩展属性
+            //如果没有ID，则加载模板中的扩展数据
+            if ($location.search()['id']==null){
+                //将获取到扩展属性，转成字符串的类型
+                $scope.entity.goodsDesc.customAttributeItems=JSON.parse( $scope.typeTemplate.customAttributeItems);//扩展属性
+            }
+
             //这边是获取到的规格属性
             //$scope.entity.goodsDesc.specificationItems=JSON.parse($scope.typeTemplate.)
         });
@@ -188,6 +201,52 @@ app.controller('goodsController',function ($scope,$controller,goodsService,itemC
             }
         })
     };
+
+    //进行数据的回显的操作
+    $scope.findOne=function () {
+        //读取id的属性值
+        var id = $location.search()['id'];
+
+        //进行判读id是否为null
+        if(id==null){
+            return;
+        }
+        goodsService.findOne(id).success(function (response) {
+            $scope.entity = response;
+            //向富文本编辑器添加商品介绍
+            editor.html($scope.entity.goodsDesc.introduction);
+            //显示图片的操作,也就是解析json的操作
+            $scope.entity.goodsDesc.itemImages=JSON.parse($scope.entity.goodsDesc.itemImages);
+            //显示扩展属性
+            $scope.entity.goodsDesc.customAttributeItems=JSON.parse($scope.entity.goodsDesc.customAttributeItems);
+            //显示规格的操作
+            $scope.entity.goodsDesc.specificationItems=JSON.parse($scope.entity.goodsDesc.specificationItems);
+
+            //转换sku列表中的规格对象
+            for (var i=0;i<$scope.entity.itemList.length;i++){
+                $scope.entity.itemList[i].spec = JSON.parse( $scope.entity.itemList[i].spec);
+            }
+        })
+    };
+
+    //根据规格名称和选项名称返回是否被勾选
+    //specName规格名称  optionName选项名称
+    $scope.checkAttributeValue=function (specName,optionName) {
+        //集合
+        var itemList = $scope.entity.goodsDesc.specificationItems;
+        var object = $scope.searchObjectByKey(itemList,'attributeName',specName);
+        if(object==null){
+            return false;
+        }else{
+            if(object.attributeValue.indexOf(optionName)>=0){
+                return true;
+            }else {
+                return false;
+            }
+        }
+        return true;
+    };
+
 
 
 })

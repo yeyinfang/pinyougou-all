@@ -23,4 +23,13 @@ public interface TbGoodsMapper extends Mapper<TbGoods> {
     * @Date: 2018/12/21 
     */ 
     List<TbGoods> findByCondition(TbGoods goods);
+
+    /** 
+    * @Description: 根据id去进行查找
+    * @Param: [id] 
+    * @return: com.pinyougou.pojo.TbGoods 
+    * @Author: Yin 
+    * @Date: 2018/12/22 
+    */ 
+    TbGoods findById(Long id);
 }

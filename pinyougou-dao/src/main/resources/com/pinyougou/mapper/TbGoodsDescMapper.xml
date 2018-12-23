@@ -20,4 +20,10 @@
     package_list,sale_service) VALUES (#{goodsId},#{introduction},#{specificationItems},
     #{customAttributeItems},#{itemImages},#{packageList},#{saleService})
   </insert>
+
+
+  <!--根据id去进行查询-->
+  <select id="findById" resultMap="BaseResultMap">
+    SELECT * FROM tb_goods_desc WHERE goods_id = #{id}
+  </select>
 </mapper>
