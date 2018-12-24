@@ -18,5 +18,10 @@ app.service('goodsService',function ($http) {
     //更新的操作
     this.update=function (entity) {
         return $http.post("../goods/update.do",entity);
-    }
+    };
+
+    //商品上下架的操作
+    this.SXJia=function (ids,isMarketable) {
+        return $http.get("../goods/SXJia.do?ids="+ids+"&isMarketable="+isMarketable);
+    };
 })

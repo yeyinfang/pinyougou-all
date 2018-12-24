@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import com.pinyougou.entity.Goods;
 import com.pinyougou.mapper.*;
 import com.pinyougou.pojo.*;
+
 import com.pinyougou.sellergoods.service.GoodsSerrvice;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,9 @@ import java.util.Map;
  * @author: YF
  * @create: 2018-10-15 09:20
  **/
-@Service
+@Service(interfaceClass = GoodsSerrvice.class)
 @Transactional
-public class GoodsServiceImpl implements GoodsSerrvice {
+public class GoodsSerrviceImpl implements GoodsSerrvice {
     @Autowired
     private TbGoodsMapper goodsMapper;
     @Autowired
@@ -199,6 +200,16 @@ public class GoodsServiceImpl implements GoodsSerrvice {
             TbGoods goods = new TbGoods();
             goods.setId(id);
             goods.setIsDelete("1");
+            goodsMapper.updateByPrimaryKey(goods);
+        }
+    }
+
+    @Override
+    public void SXJia(Long[] ids, String isMarketable) {
+        for (Long id : ids) {
+            TbGoods goods = new TbGoods();
+            goods.setId(id);
+            goods.setIsMarketable(isMarketable);
             goodsMapper.updateByPrimaryKey(goods);
         }
     }

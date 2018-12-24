@@ -248,5 +248,20 @@ app.controller('goodsController',function ($scope,$controller,$location,goodsSer
     };
 
 
+    //商品的上架和下架的问题
+    $scope.SXJia=function (isMarketable) {
+        goodsService.SXJia($scope.selectedIds,isMarketable).success(function (response) {
+            if(response.status==0){
+                alert(response.message);
+                $scope.reloadList();
+                $scope.selectedIds=[];//清空ID集合
+            }else{
+                alert(response.message);
+            }
+        })
+        
+    }
+
+
 
 })

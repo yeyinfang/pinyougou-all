@@ -5,6 +5,7 @@ import com.pinyougou.entity.Goods;
 import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbGoods;
 import com.pinyougou.sellergoods.service.GoodsSerrvice;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -108,4 +109,29 @@ public class GoodsController {
         }
 
     }
+    
+    /** 
+    * @Description: 商品的上架和下架的功能
+    * @Param: [] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbGoods> 
+    * @Author: Yin 
+    * @Date: 2018/12/24 
+    */
+    @RequestMapping("/SXJia")
+    public ResponseResult<TbGoods> SXJia(String ids,String isMarketable){
+        try {
+            String[] str = ids.split(",");
+            Long[] id = new Long[str.length];
+            for (int i = 0; i < str.length; i++) {
+                id[i]=Long.parseLong(str[i]);
+            }
+            goodsSerrvice.SXJia(id,isMarketable);
+            return ResponseResult.success("操作成功了");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("操作失败了，请重新尝试吧");
+        }
+
+    }
+    
 }

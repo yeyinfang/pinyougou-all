@@ -5,6 +5,7 @@ import com.pinyougou.entity.Goods;
 import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbGoods;
 import com.pinyougou.sellergoods.service.GoodsSerrvice;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -73,17 +74,7 @@ public class GoodsController {
         }
     }
 
-    /** 
-    * @Description: 商品的上架和下架的功能
-    * @Param: [] 
-    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbGoods> 
-    * @Author: Yin 
-    * @Date: 2018/12/24 
-    */ 
-    public ResponseResult<TbGoods> SXJia(){
 
-        return null;
-    }
 
     @RequestMapping("/delete")
     public ResponseResult<TbGoods> deleteGoods(String ids){

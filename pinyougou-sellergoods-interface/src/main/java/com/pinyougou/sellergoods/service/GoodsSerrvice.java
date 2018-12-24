@@ -1,7 +1,6 @@
 package com.pinyougou.sellergoods.service;
 
 import com.pinyougou.entity.Goods;
-import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbGoods;
 
 import java.util.Map;
@@ -70,4 +69,15 @@ public interface GoodsSerrvice {
     * @Date: 2018/12/24 
     */ 
     void deleteGoods(Long[] id);
+
+    /** 
+    * @Description: 商品的上架和下架功能 
+    * @Param: [ids, isMarketable]
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/12/24 
+     * @param ids
+     * @param isMarketable
+    */ 
+    void SXJia(Long[] ids, String isMarketable);
 }

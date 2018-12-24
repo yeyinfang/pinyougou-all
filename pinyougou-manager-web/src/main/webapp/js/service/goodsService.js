@@ -18,6 +18,8 @@ app.service('goodsService',function ($http) {
     this.deleteGoods=function (ids) {
         return $http.get("../goods/delete.do?ids="+ids);
     };
+    
+
 
 
 })

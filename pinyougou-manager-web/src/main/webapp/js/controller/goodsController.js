@@ -1,4 +1,4 @@
-app.controller('goodsController',function ($scope,$controller,$location,goodsService,itemCatService) {
+app.controller('goodsController',function ($scope,$controller,$location,goodsService,itemCatService,typeTemplateService) {
     //继承
     $controller('baseController',{$scope:$scope});
 
@@ -135,9 +135,9 @@ app.controller('goodsController',function ($scope,$controller,$location,goodsSer
     * 在模板id进行选择完之后，获取到模板中的东西
     * */
     //$scope.entity.typeTemplate={brandIds:[]};
-    /*$scope.$watch('entity.goods.typeTemplateId',function (newValue,oldValue) {
+    $scope.$watch('entity.goods.typeTemplateId',function (newValue,oldValue) {
 
-        /!*根据模板去进行寻找的*!/
+        /*根据模板去进行寻找的*/
         typeTemplateService.findOne(newValue).success(function (response) {
             //获取到类型的模板
             $scope.typeTemplate=response;
@@ -152,19 +152,18 @@ app.controller('goodsController',function ($scope,$controller,$location,goodsSer
             }
 
             //这边是获取到的规格属性
-            //$scope.entity.goodsDesc.specificationItems=JSON.parse($scope.typeTemplate.)
+            //$scope.entity.goodsDesc.specificationItems=JSON.parse($scope.typeTemplate)
         });
-        /!*根据规格属性进行找到的，然后赋值过来*!/
+        /*根据规格属性进行找到的，然后赋值过来*/
         typeTemplateService.findSpecList(newValue).success(function (response) {
             $scope.specList=response;
         })
 
-    });*/
-    /*
+    });
 
-        /!*
+        /*
         * 修改规格选项的操作，也就是自己选择或者不选择的问题了
-        * *!/
+        * */
         $scope.updateSpecAttribute=function ($event,name,value) {
             //也就是查询到key的键值
             var object= $scope.searchObjectByKey($scope.entity.goodsDesc.specificationItems ,'attributeName', name);
@@ -219,7 +218,6 @@ app.controller('goodsController',function ($scope,$controller,$location,goodsSer
             }
             return newList;
         };
-    */
 
 
 
