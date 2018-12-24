@@ -114,6 +114,20 @@ app.controller('goodsController',function ($scope,$controller,$location,goodsSer
         })
     };
 
+    //逻辑删除的操作
+    $scope.del=function () {
+        goodsService.deleteGoods($scope.selectedIds).success(function (response) {
+            if(response.status==0){//删除成功的
+                alert(response.message);
+                $scope.reloadList();//刷新列表
+                $scope.selectedIds=[];//清空ID集合
+            }else{
+                alert(response.message);
+
+            }
+        })
+    }
+
 
 
     /* ------以下是会出错的代码-------  */

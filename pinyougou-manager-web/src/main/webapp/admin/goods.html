@@ -52,10 +52,10 @@
         <div class="pull-left">
             <div class="form-group form-inline">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
+                    <button type="button" class="btn btn-default" ng-click="del()" title="删除"><i class="fa fa-trash-o"></i> 删除</button>
                     <button type="button" class="btn btn-default" ng-click="updateStatus('1')" title="审核通过"><i class="fa fa-check"></i> 审核通过</button>
                     <button type="button" class="btn btn-default" ng-click="updateStatus('2')" title="驳回"><i class="fa fa-ban"></i> 驳回</button>
-                    <button type="button" class="btn btn-default" title="刷新"><i class="fa fa-refresh"></i> 刷新</button>
+                    <button type="button" class="btn btn-default" onclick="window.location.reload();" title="刷新"><i class="fa fa-refresh"></i> 刷新</button>
                 </div>
             </div>
         </div>
@@ -93,9 +93,6 @@
                 <td>{{itemCatList[entity.category1Id]}}</td>
                 <td>{{itemCatList[entity.category2Id]}}</td>
                 <td>{{itemCatList[entity.category3Id]}}</td>
-               <!-- <td>{{entity.category1Id}}</td>
-                <td>{{entity.category2Id}}</td>
-                <td>{{entity.category3Id}}</td>-->
                 <td>{{status[entity.auditStatus]}}</td>
                 <td class="text-center">
                     <button type="button" class="btn bg-olive btn-xs">

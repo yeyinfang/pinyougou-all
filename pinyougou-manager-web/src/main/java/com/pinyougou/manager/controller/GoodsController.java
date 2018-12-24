@@ -58,7 +58,7 @@ public class GoodsController {
     * @Date: 2018/12/23 
     */
     @RequestMapping("/updateStatus")
-    public ResponseResult updateStatus(String ids,String status){
+    public ResponseResult<TbGoods> updateStatus(String ids,String status){
         try {
             String[] id = ids.split(",");
             Long[] longs = new Long[id.length];
@@ -71,6 +71,34 @@ public class GoodsController {
             e.printStackTrace();
             return ResponseResult.error("审核操作出现问题啦");
         }
+    }
 
+    /** 
+    * @Description: 商品的上架和下架的功能
+    * @Param: [] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbGoods> 
+    * @Author: Yin 
+    * @Date: 2018/12/24 
+    */ 
+    public ResponseResult<TbGoods> SXJia(){
+
+        return null;
+    }
+
+    @RequestMapping("/delete")
+    public ResponseResult<TbGoods> deleteGoods(String ids){
+        try {
+            //先将id进行切割
+            String[] str = ids.split(",");
+            Long[] id = new Long[str.length];
+            for (int i = 0; i < str.length; i++) {
+                id[i]=Long.parseLong(str[i]);
+            }
+            goodsSerrvice.deleteGoods(id);
+            return ResponseResult.success("删除成功啦！！！");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("删除失败啦！！！");
+        }
     }
 }

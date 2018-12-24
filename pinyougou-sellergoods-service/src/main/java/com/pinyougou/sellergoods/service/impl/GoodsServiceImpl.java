@@ -11,6 +11,7 @@ import com.pinyougou.pojo.*;
 import com.pinyougou.sellergoods.service.GoodsSerrvice;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -24,7 +25,8 @@ import java.util.Map;
  * @create: 2018-10-15 09:20
  **/
 @Service
-public class GoodsSerrviceImpl implements GoodsSerrvice {
+@Transactional
+public class GoodsServiceImpl implements GoodsSerrvice {
     @Autowired
     private TbGoodsMapper goodsMapper;
     @Autowired
@@ -159,6 +161,7 @@ public class GoodsSerrviceImpl implements GoodsSerrvice {
         Map<String ,Object> map = new HashMap<>();
         Example example = new Example(TbGoods.class);
         Example.Criteria criteria = example.createCriteria();
+        criteria.andIsNull("isDelete");//指定条件为未逻辑删除记录
         if (goods!=null){//也就是有这个对象的情况
             //判断状态的情况
             //select * from tb_goods where auditStatus=?
@@ -184,6 +187,19 @@ public class GoodsSerrviceImpl implements GoodsSerrvice {
             TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
             tbGoods.setAuditStatus(status);
             goodsMapper.updateByPrimaryKey(tbGoods);
+        }
+    }
+
+    //我们这边是逻辑删除而不是物理删除
+    //1是删除，0是存在的意思
+    @Override
+    public void deleteGoods(Long[] ids) {
+        for (Long id : ids) {
+            System.out.println(id);
+            TbGoods goods = new TbGoods();
+            goods.setId(id);
+            goods.setIsDelete("1");
+            goodsMapper.updateByPrimaryKey(goods);
         }
     }
 

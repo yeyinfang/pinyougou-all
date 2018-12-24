@@ -61,4 +61,13 @@ public interface GoodsSerrvice {
     * @Date: 2018/12/23 
     */ 
     void updateStatus(Long[] ids, String status);
+
+    /** 
+    * @Description: 我们这边是逻辑删除而不是物理删除 
+    * @Param: [id] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/12/24 
+    */ 
+    void deleteGoods(Long[] id);
 }

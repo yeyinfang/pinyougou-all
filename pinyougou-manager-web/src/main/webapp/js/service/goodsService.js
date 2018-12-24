@@ -13,4 +13,11 @@ app.service('goodsService',function ($http) {
     this.updateStatus=function (ids,status) {
         return $http.get("../goods/updateStatus.do?ids="+ids+"&status="+status);
     };
+
+    //逻辑删除的操作
+    this.deleteGoods=function (ids) {
+        return $http.get("../goods/delete.do?ids="+ids);
+    };
+
+
 })
