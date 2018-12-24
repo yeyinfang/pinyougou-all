@@ -186,7 +186,7 @@ app.controller('goodsController',function ($scope,$controller,$location,goodsSer
     };
 
     //定义出状态的值
-    $scope.status=['未审核','已审核','审核未通过','关闭'];
+    $scope.status=['未审核','审核中','审核通过','审核被驳回','商品下架'];
 
     //商品分类列表
     $scope.itemCatList=[];

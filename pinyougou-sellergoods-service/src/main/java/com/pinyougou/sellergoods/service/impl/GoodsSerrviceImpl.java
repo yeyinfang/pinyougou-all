@@ -207,8 +207,14 @@ public class GoodsSerrviceImpl implements GoodsSerrvice {
     @Override
     public void SXJia(Long[] ids, String isMarketable) {
         for (Long id : ids) {
-            TbGoods goods = new TbGoods();
-            goods.setId(id);
+            TbGoods goods = goodsMapper.selectByPrimaryKey(id);
+            //goods.setId(id);
+            //进行判断商品的状态
+            if (isMarketable.equals("0")){//下架的状态
+                goods.setAuditStatus("4");
+            }else {//上架
+                goods.setAuditStatus("1");//将商品的状态设置为审核中的状态
+            }
             goods.setIsMarketable(isMarketable);
             goodsMapper.updateByPrimaryKey(goods);
         }
