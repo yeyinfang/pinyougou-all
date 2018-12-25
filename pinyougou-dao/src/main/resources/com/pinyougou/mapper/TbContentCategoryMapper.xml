@@ -8,4 +8,10 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
+
+  <!--查询所有的信息-->
+  <select id="findAll" resultMap="BaseResultMap">
+    select * from tb_content_category
+  </select>
+
 </mapper>

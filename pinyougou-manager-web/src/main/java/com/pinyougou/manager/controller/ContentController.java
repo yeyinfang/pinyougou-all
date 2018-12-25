@@ -2,7 +2,9 @@ package com.pinyougou.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.content.service.ContentService;
+import com.pinyougou.entity.ResponseResult;
 import com.pinyougou.pojo.TbContent;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,10 +38,55 @@ public class ContentController {
         return contentService.findByCondition(content,page,rows);
     }
 
+    /** 
+    * @Description: 根据id去进行查询 
+    * @Param: [id] 
+    * @return: com.pinyougou.pojo.TbContent 
+    * @Author: Yin 
+    * @Date: 2018/12/25 
+    */ 
     @RequestMapping("/findOne")
     @ResponseBody
     public TbContent findOne(Long id){
         return contentService.findOne(id);
 
     }
+
+    /** 
+    * @Description: 修改的操作
+    * @Param: [content] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbContent> 
+    * @Author: Yin 
+    * @Date: 2018/12/25 
+    */ 
+    @RequestMapping("/update")
+    public ResponseResult<TbContent> updateContent(@RequestBody TbContent content){
+        try {
+            contentService.updateContent(content);
+            return ResponseResult.success("修改成功啦");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("修改失败啦，请重试");
+        }
+    }
+
+    /** 
+    * @Description: 添加商品的操作
+    * @Param: [content] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbContent> 
+    * @Author: Yin 
+    * @Date: 2018/12/25 
+    */ 
+    @RequestMapping("/add")
+    public ResponseResult<TbContent> addContent(@RequestBody TbContent content){
+        try {
+            contentService.addContent(content);
+            return ResponseResult.success("添加成功啦");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("添加失败");
+        }
+    }
+    
+    
 }

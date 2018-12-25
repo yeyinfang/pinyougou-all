@@ -1,13 +1,12 @@
-package com.pinyougou.mapper;
+package com.pinyougou.sellergoods.service;
 
-import com.github.abel533.mapper.Mapper;
 import com.pinyougou.pojo.TbContentCategory;
 
 import java.util.List;
 
-public interface TbContentCategoryMapper extends Mapper<TbContentCategory> {
+public interface ContentCategoryService {
     /** 
-    * @Description: 查询所有的
+    * @Description: 查询所有的 
     * @Param: [] 
     * @return: java.util.List<com.pinyougou.pojo.TbContentCategory> 
     * @Author: Yin 

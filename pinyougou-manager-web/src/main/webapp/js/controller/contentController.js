@@ -1,4 +1,4 @@
-app.controller('contentController',function ($scope,$controller,contentService,uploadService) {
+app.controller('contentController',function ($scope,$controller,contentService,uploadService,contentCategoryService) {
     //控制器继承
     $controller('baseController',{$scope:$scope});
 
@@ -29,5 +29,29 @@ app.controller('contentController',function ($scope,$controller,contentService,u
             }
         });
     };
+
+    //加载广告分类列表
+    $scope.findContentCategory=function () {
+        contentCategoryService.findAll().success(function (response) {
+
+            $scope.contentCategoryList=response;
+        })
+    };
+
+    //定义状态
+    $scope.status=['无效','有效'];
+
+    //添加或者修改的操作
+    $scope.addContent=function () {
+        alert($scope.entity)
+        contentService.addContent($scope.entity).success(function (response) {
+           if(response.status==0){//成功
+               alert(response.message);
+               $scope.reloadList();
+           }else {//失败
+               alert(response.message);
+           }
+        });
+    }
 
 })

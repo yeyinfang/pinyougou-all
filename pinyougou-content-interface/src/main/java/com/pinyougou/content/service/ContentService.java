@@ -23,4 +23,22 @@ public interface ContentService {
     * @Date: 2018/12/24 
     */ 
     TbContent findOne(Long id);
+
+    /** 
+    * @Description:修改广告的信息
+    * @Param: [content] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/12/25 
+    */ 
+    void updateContent(TbContent content);
+
+    /** 
+    * @Description: 添加广告的操作
+    * @Param: [content] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/12/25 
+    */ 
+    void addContent(TbContent content);
 }

@@ -8,4 +8,16 @@ app.service('contentService',function ($http) {
     this.findOne=function (id) {
         return $http.get("../content/findOne.do?id="+id);
     };
+
+    //修改的操作
+    this.addContent=function (entity) {
+
+        var method='add';
+        if (entity.id!=null){
+            method= 'update';
+        }
+        return $http.post("../content/"+method+".do",entity);
+    };
+
+
 })

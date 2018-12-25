@@ -49,4 +49,14 @@ public class ContentServiceImpl implements ContentService {
         TbContent content = contentMapper.selectByPrimaryKey(id);
         return content;
     }
+
+    @Override
+    public void updateContent(TbContent content) {
+        contentMapper.updateByPrimaryKey(content);
+    }
+
+    @Override
+    public void addContent(TbContent content) {
+        contentMapper.insert(content);
+    }
 }
