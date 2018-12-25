@@ -43,10 +43,10 @@ app.controller('contentController',function ($scope,$controller,contentService,u
 
     //添加或者修改的操作
     $scope.addContent=function () {
-        alert($scope.entity)
+
         contentService.addContent($scope.entity).success(function (response) {
            if(response.status==0){//成功
-               alert(response.message);
+              
                $scope.reloadList();
            }else {//失败
                alert(response.message);

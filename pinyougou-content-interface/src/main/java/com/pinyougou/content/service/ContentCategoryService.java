@@ -1,4 +1,4 @@
-package com.pinyougou.sellergoods.service;
+package com.pinyougou.content.service;
 
 import com.pinyougou.pojo.TbContentCategory;
 

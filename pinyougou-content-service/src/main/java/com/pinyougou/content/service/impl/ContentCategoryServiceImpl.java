@@ -1,9 +1,10 @@
-package com.pinyougou.sellergoods.service.impl;
+package com.pinyougou.content.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.pinyougou.content.service.ContentCategoryService;
 import com.pinyougou.mapper.TbContentCategoryMapper;
 import com.pinyougou.pojo.TbContentCategory;
-import com.pinyougou.sellergoods.service.ContentCategoryService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

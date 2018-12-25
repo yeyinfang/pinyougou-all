@@ -59,4 +59,9 @@ public class ContentServiceImpl implements ContentService {
     public void addContent(TbContent content) {
         contentMapper.insert(content);
     }
+
+    @Override
+    public List<TbContent> findByCategoryId(Long id) {
+        return contentMapper.findByCategoryId(id);
+    }
 }

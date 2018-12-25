@@ -13,4 +13,9 @@
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="sort_order" jdbcType="INTEGER" property="sortOrder" />
   </resultMap>
+
+  <!--根据id去进行查询-->
+  <select id="findByCategoryId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    SELECT * FROM tb_content WHERE category_id = #{id}
+  </select>
 </mapper>

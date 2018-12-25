@@ -2,6 +2,7 @@ package com.pinyougou.content.service;
 
 import com.pinyougou.pojo.TbContent;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ContentService {
@@ -41,4 +42,13 @@ public interface ContentService {
     * @Date: 2018/12/25 
     */ 
     void addContent(TbContent content);
+
+    /** 
+    * @Description: 查询广告的分类显示
+    * @Param: [id] 
+    * @return: java.util.List<com.pinyougou.pojo.TbContent> 
+    * @Author: Yin 
+    * @Date: 2018/12/25 
+    */ 
+    List<TbContent> findByCategoryId(Long id);
 }
