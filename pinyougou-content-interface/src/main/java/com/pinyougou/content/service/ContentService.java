@@ -51,4 +51,13 @@ public interface ContentService {
     * @Date: 2018/12/25 
     */ 
     List<TbContent> findByCategoryId(Long id);
+
+    /** 
+    * @Description: 批量删除 
+    * @Param: [ids] 
+    * @return: void 
+    * @Author: Yin 
+    * @Date: 2018/12/26 
+    */ 
+    void deleteContent(long[] ids);
 }

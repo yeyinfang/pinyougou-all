@@ -11,7 +11,8 @@ public interface TbContentMapper extends Mapper<TbContent> {
     * @Param: [id] 
     * @return: java.util.List<com.pinyougou.pojo.TbContent> 
     * @Author: Yin 
-    * @Date: 2018/12/25 
+    * @Date: 2018/12/25
+     * @param content
     */ 
-    List<TbContent> findByCategoryId(Long id);
+    List<TbContent> findByCategoryId(TbContent content);
 }

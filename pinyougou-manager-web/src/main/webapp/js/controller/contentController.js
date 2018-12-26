@@ -46,12 +46,30 @@ app.controller('contentController',function ($scope,$controller,contentService,u
 
         contentService.addContent($scope.entity).success(function (response) {
            if(response.status==0){//成功
-              
+
                $scope.reloadList();
            }else {//失败
                alert(response.message);
            }
         });
+    };
+
+    //删除的操作
+    $scope.dele=function () {
+        if($scope.selectedIds.length==0){
+            alert("请先选择要删除的数据!");
+        }else{
+            contentService.deleteContent($scope.selectedIds).success(function (response) {
+                if(response.status==0){//删除成功
+                    alert(response.message);
+                    $scope.reloadList();
+                }else {//删除失败
+                    alert(response.message);
+                }
+            });
+        }
+
     }
+    
 
 })

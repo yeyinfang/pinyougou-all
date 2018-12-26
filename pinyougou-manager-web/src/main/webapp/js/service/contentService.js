@@ -19,5 +19,10 @@ app.service('contentService',function ($http) {
         return $http.post("../content/"+method+".do",entity);
     };
 
+    //删除的操作
+    this.deleteContent=function (ids) {
+        return $http.get("../content/delete.do?ids="+ids);
+    }
+
 
 })

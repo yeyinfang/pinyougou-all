@@ -87,6 +87,29 @@ public class ContentController {
             return ResponseResult.error("添加失败");
         }
     }
+
+    /** 
+    * @Description: 批量删除
+    * @Param: [ids] 
+    * @return: com.pinyougou.entity.ResponseResult<com.pinyougou.pojo.TbContent> 
+    * @Author: Yin 
+    * @Date: 2018/12/26 
+    */ 
+    @RequestMapping("/delete")
+    public ResponseResult<TbContent> deleteContent(String ids){
+        try {
+            String[] str = ids.split(",");
+            long[] id = new long[str.length];
+            for (int i = 0; i < str.length; i++) {
+                id[i]=Long.parseLong(str[i]);
+            }
+            contentService.deleteContent(id);
+            return ResponseResult.success("删除成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseResult.error("删除出错");
+        }
+    }
     
     
 }
