@@ -1,36 +1,48 @@
 package com.pinyougou.pojo;
 
+import org.apache.solr.client.solrj.beans.Field;
+import org.springframework.data.solr.core.mapping.Dynamic;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
 import javax.persistence.*;
 
-@Table(name = "tb_item")
+//@Table(name = "tb_item")
 public class TbItem implements Serializable {
     /**
      * 商品id，同时也是商品编号
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+   /* @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)*/
+   @Field
     private Long id;
 
     /**
      * 商品标题
      */
+
+    @Field("item_title")
     private String title;
+
+
+
+
 
     /**
      * 商品卖点
      */
-    @Column(name = "sell_point")
+    //@Column(name = "sell_point")
     private String sellPoint;
 
     /**
      * 商品价格，单位为：元
      */
+    @Field("item_price")
     private BigDecimal price;
 
-    @Column(name = "stock_count")
+    //@Column(name = "stock_count")
     private Integer stockCount;
 
     /**
@@ -46,12 +58,13 @@ public class TbItem implements Serializable {
     /**
      * 商品图片
      */
+    @Field("item_image")
     private String image;
 
     /**
      * 所属类目，叶子类目
      */
-    @Column(name = "categoryId")
+    //@Column(name = "categoryId")
     private Long categoryid;
 
     /**
@@ -68,37 +81,53 @@ public class TbItem implements Serializable {
     /**
      * 更新时间
      */
-    @Column(name = "update_time")
+    //@Column(name = "update_time")
     private Date updateTime;
 
-    @Column(name = "item_sn")
+    //@Column(name = "item_sn")
     private String itemSn;
 
-    @Column(name = "cost_pirce")
+    //@Column(name = "cost_pirce")
     private BigDecimal costPirce;
 
-    @Column(name = "market_price")
+    //@Column(name = "market_price")
     private BigDecimal marketPrice;
 
-    @Column(name = "is_default")
+    //@Column(name = "is_default")
     private String isDefault;
 
-    @Column(name = "goods_id")
+    //@Column(name = "goods_id")
+    @Field("item_goodsid")
     private Long goodsId;
 
-    @Column(name = "seller_id")
+    //@Column(name = "seller_id")
     private String sellerId;
 
-    @Column(name = "cart_thumbnail")
+    //@Column(name = "cart_thumbnail")
     private String cartThumbnail;
 
+    @Field("item_category")
     private String category;
 
+    @Field("item_brand")
     private String brand;
 
     private String spec;
 
+    @Field("item_seller")
     private String seller;
+
+    @Dynamic
+    @Field("item_spec_*")
+    @Column(name = "spec")
+    private Map<String,String> specMap;
+    public Map<String, String> getSpecMap() {
+        return specMap;
+    }
+    public void setSpecMap(Map<String, String> specMap) {
+        this.specMap = specMap;
+    }
+
 
     private static final long serialVersionUID = 1L;
 
@@ -468,6 +497,7 @@ public class TbItem implements Serializable {
         this.seller = seller;
     }
 
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -497,6 +527,7 @@ public class TbItem implements Serializable {
         sb.append(", brand=").append(brand);
         sb.append(", spec=").append(spec);
         sb.append(", seller=").append(seller);
+        sb.append(", specMap=").append(specMap);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
